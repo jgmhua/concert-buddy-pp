@@ -1,0 +1,9 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+
+.btn {
+    border-radius: 0.5rem;
+    background-color: white;
+    min-width: 6.25rem;
+    padding: 0.5rem $mobile-spacing;
+}

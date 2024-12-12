@@ -1,0 +1,16 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+
+.header {
+    width: 100%;
+    @include flex-box(row, space-between, center);
+}
+
+.nav-bar {
+    @extend .header;
+}
+
+.user-info {
+    @include flex-box(row, center, center);
+    gap: 0.5rem;
+}

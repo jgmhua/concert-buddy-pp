@@ -1,0 +1,30 @@
+@use 'variables' as *;
+
+/*mixins for media breakpoints*/
+@mixin tablet {
+    @media screen and (min-width: $tablet-min) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: $desktop-min) {
+        @content;
+    }
+}
+
+/*Flexbox*/
+@mixin flex-box($dir: row,
+    $justifyContent: null,
+    $alignItems: null,
+    $alignContent: null,
+    $wrap: null,
+    $grow: null) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: $justifyContent;
+    align-items: $alignItems;
+    align-content: $alignContent;
+    flex-wrap: $wrap;
+    flex-grow: $grow;
+}

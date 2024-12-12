@@ -1,0 +1,8 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+
+.footer {
+    @include flex-box(row, center, center);
+    width: 100%;
+    align-self: flex-end;
+}
