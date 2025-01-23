@@ -6,7 +6,6 @@ import Button from "../../components/Button/Button.jsx";
 
 export default function HomePage() {
 	const [playlist, setPlaylist] = useState("");
-	// const [userData, setUserData] = useState(null); //we might have to adjust to be an object with the key/value pairs we're expecting
 
 	// async function getUserData() {
 	// 	const response = await axios.get(`${VITE_BASE_URL}:${VITE_PORT}/login`);
@@ -19,7 +18,7 @@ export default function HomePage() {
 	// if(!userData) {
 		
 	// }
-
+	
 	const handleFunc = () => {
 		console.log("placeholder onClick function");
 	};
