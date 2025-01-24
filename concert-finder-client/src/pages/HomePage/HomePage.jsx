@@ -1,24 +1,13 @@
 import "./HomePage.scss";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import Button from "../../components/Button/Button.jsx";
 
 // TODO: come back to this and fix/implement actual functionality
 
 export default function HomePage() {
 	const [playlist, setPlaylist] = useState("");
-
-	// async function getUserData() {
-	// 	const response = await axios.get(`${VITE_BASE_URL}:${VITE_PORT}/login`);
-
-	// 	if(response.data) {
-	// 		setUserData(response.data);
-	// 	}
-	// }
-
-	// if(!userData) {
-		
-	// }
-	
+	const {display_name} = useParams();
 	const handleFunc = () => {
 		console.log("placeholder onClick function");
 	};
@@ -32,7 +21,9 @@ export default function HomePage() {
 		<article className="home">
 			<h1 className="home__title">Home Page</h1>
 			<section className="home__content">
-				<form className="form" onSubmit={handleForm}>
+				<h2>{display_name}</h2>
+				
+				{/* <form className="form" onSubmit={handleForm}>
 					<label className="form__label" htmlFor="playlist">
 						<input
 							className="form__input"
@@ -46,7 +37,7 @@ export default function HomePage() {
 						/>
 					</label>
 					<Button type="submit" text="Find Concerts" handleFunc={handleForm} />
-				</form>
+				</form> */}
 			</section>
 		</article>
 	);

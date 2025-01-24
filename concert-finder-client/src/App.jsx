@@ -8,15 +8,14 @@ import Footer from "./components/Footer/Footer";
 
 export default function App() {
 	
-
 	return (
 		<BrowserRouter>
 			<article className="app">
 				<Header />
 				<Routes>
-					{/* <Route path="/" element={<HomePage />} /> */}
 					<Route path="/" element={<LoginPage />} />
-					<Route path="/home" element={<Navigate to="/" />} />
+					<Route path="/login" element={<Navigate to="/" />} />
+					<Route path="/users/:displayName" element={<HomePage />} />
 					<Route path="/notfound" element={<NotFoundPage />} />
 					<Route path="*" element={<Navigate to="/notfound" />} />
 				</Routes>
