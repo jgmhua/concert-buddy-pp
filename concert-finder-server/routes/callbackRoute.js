@@ -29,17 +29,18 @@ async function getUserData(credentials) {
 }
 
 
-router.get('/', async (req, res) => {
-let code = req.query.code || null;
-let state = req.query.state || null;
-console.log("state:", state, "code:", code)
-
+router.post('/', async (req, res) => {
+// let code = req.query.code || null;
+// let state = req.query.state || null;
+// console.log("state:", state, "code:", code)
+const { code, state } = req.body
+console.log("code backend:", code)
   
   if (state === null || state !== state) {
     return res.redirect('/#' + querystring.stringify({ error: 'state_mismatch' }));
   }
 
-  // try {
+  try {
     const response = await axios.post('https://accounts.spotify.com/api/token',
         new URLSearchParams({
             code: code,
@@ -49,20 +50,20 @@ console.log("state:", state, "code:", code)
         {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + (new Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'))
+                'Authorization': 'Basic ' + (Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'))
               },
         }  
     );
 
     // const profileData = getUserData(response.data);
     // res.status(200).send(profileData);
-    console.log(response)
-    res.send(response.data)
+    console.log('token response', response.data)
+    res.json(response.data)
 
-  // } catch (error) {
-  //   console.error('Error fetching token');
-  //   res.status(500).send('Failed to exchange code for tokens.');
-  // }
+  } catch (error) {
+    console.error('Error fetching token', error.response?.data || error.message);
+    res.status(500).send('Failed to exchange code for tokens.');
+  }
   });
 
 export default router;

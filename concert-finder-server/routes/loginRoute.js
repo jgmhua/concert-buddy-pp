@@ -27,4 +27,21 @@ router.get('/', async (req, res) => {
           }));
 });
 
+router.get('/url', (req, res) => {
+    const state = generateRandomString();
+    const scope = "user-read-private user-read-email";
+
+    const spotifyAuthUrl = 'https://accounts.spotify.com/authorize?' +
+        querystring.stringify({
+            response_type: 'code',
+            client_id: CLIENT_ID,
+            scope: scope,
+            redirect_uri: REDIRECT_URL,
+            state: state
+          });
+
+    res.json({ url: spotifyAuthUrl})
+
+})
+
 export default router;

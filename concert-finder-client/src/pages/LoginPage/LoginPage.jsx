@@ -1,11 +1,13 @@
 import "./LoginPage.scss";
 import { useState } from "react";
 import Button from "../../components/Button/Button.jsx";
+import axios from 'axios'
 
 export default function LoginPage() {
 
-    function redirectLink(){
-        
+    async function redirectLink(){
+        const response = await axios.get('http://localhost:8080/login/url');
+        window.location.href = response.data.url;
     } 
 
     return (
