@@ -8,18 +8,18 @@ export default function CallbackPage() {
     useEffect(() => {
         const code = searchParams.get("code");
         const state = searchParams.get("state");
-        console.log(code, state)
+        console.log("code", code);
+        console.log("state", state);
 
-        if (code) {
-            exchangeCodeForToken(code);
+        if (code && state) {
+            exchangeCodeForToken(code, state);
         }
-    }, [searchParams]);
+    }, []);
 
-    async function exchangeCodeForToken(code) {
+    async function exchangeCodeForToken(code, state) {
         try {
-            const response = await axios.post("http://localhost:8080/callback", { code });
+            const response = await axios.post("http://localhost:8080/callback", { code, state });
             console.log("Access token:", response.data.access_token);
-            // Store the token (e.g., in localStorage or React state)
         } catch (error) {
             console.error("Failed to exchange code for token:", error);
         }

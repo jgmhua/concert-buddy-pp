@@ -35,6 +35,7 @@ router.post('/', async (req, res) => {
 // console.log("state:", state, "code:", code)
 const { code, state } = req.body
 console.log("code backend:", code)
+console.log("state", state)
   
   if (state === null || state !== state) {
     return res.redirect('/#' + querystring.stringify({ error: 'state_mismatch' }));
@@ -45,7 +46,7 @@ console.log("code backend:", code)
         new URLSearchParams({
             code: code,
             redirect_uri: REDIRECT_URL,
-            grant_type: 'authorization_code',
+            grant_type: 'client_credentials',
         }).toString(),
         {
             headers: {
@@ -58,6 +59,7 @@ console.log("code backend:", code)
     // const profileData = getUserData(response.data);
     // res.status(200).send(profileData);
     console.log('token response', response.data)
+    console.log('access token from backend', response.data.access_token)
     res.json(response.data)
 
   } catch (error) {
