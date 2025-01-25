@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 
 router.get('/url', (req, res) => {
     const state = generateRandomString();
-    const scope = "user-read-private user-read-email";
+    const scope = "user-read-private user-read-email user-top-read";
 
     const spotifyAuthUrl = 'https://accounts.spotify.com/authorize?' +
         querystring.stringify({

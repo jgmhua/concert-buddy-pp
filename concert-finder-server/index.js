@@ -5,6 +5,7 @@ import 'dotenv/config';
 import loginRoutes from "./routes/loginRoute.js";''
 import callbackRoutes from "./routes/callbackRoute.js";
 import refreshRoutes from "./routes/refreshRoutes.js";
+import userDataRoutes from "./routes/userDataRoutes.js";
 
 
 const app = express();
@@ -19,6 +20,8 @@ const PORT = process.env.PORT || 5050;
 app.use("/login", loginRoutes);
 app.use("/callback", callbackRoutes);
 app.use("/refresh", refreshRoutes);
+app.use("/user", userDataRoutes);
+
 
 app.get("/", (_req, res) => {
     res.send("hello")
