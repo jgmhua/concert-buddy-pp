@@ -6,9 +6,6 @@ const router = express.Router();
 
 const { CLIENT_ID, REDIRECT_URL, CLIENT_SECRET, BASE_URL, PORT } = process.env;
 
-// helper functions?
-
-
 router.post('/', async (req, res) => {
 const { code, state } = req.body
 console.log("code backend:", code)
@@ -42,8 +39,9 @@ console.log("state", state)
     res.status(200).json(response.data)
 
   } catch (error) {
-    console.error('Error fetching token', error.response?.data || error.message);
-    res.status(500).send('Failed to exchange code for tokens.');
+    // console.error('Error fetching token', error.response?.data || error.message);
+    // res.status(500).send('Failed to exchange code for tokens.');
+    res.status(500).send(error.response?.data || error.message);
   }
   });
 

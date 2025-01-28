@@ -3,6 +3,8 @@ import { useState } from "react";
 import Button from "../../components/Button/Button.jsx";
 import axios from 'axios'
 
+//TODO: Change harded coded urls into .env variables
+
 export default function LoginPage() {
 
     async function redirectLink(){

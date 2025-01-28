@@ -1,67 +1,142 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
+import getNewAccessToken from "../../../utils/refreshToken";
+
+//TODO: Change harded coded urls into .env variables
+//FIXME: Might have to modify the check for access token rather than just setting a timer...
 
 export default function CallbackPage() {
-    const [profileData, setProfileData] = useState(null);
-    const [searchParams] = useSearchParams();
+	const [profileData, setProfileData] = useState(null);
+	const [playlists, setPlaylists] = useState(null);
+	const [searchParams] = useSearchParams();
+	const [isTokenExpired, setIsTokenExpired] = useState(false);
 
-    useEffect(() => {
-        const code = searchParams.get("code");
-        const state = searchParams.get("state");
-        console.log("code", code);
-        console.log("state", state);
+	useEffect(() => {
+		const code = searchParams.get("code");
+		const state = searchParams.get("state");
+		if (code) {
+			exchangeCodeForToken(code);
+		}
 
-        if (code) {
-            exchangeCodeForToken(code);
-        }
-    }, []);
+		const expiryTime = localStorage.getItem("ExpiryTime");
+		if (expiryTime) {
+			setTimeout(getNewAccessToken, expiryTime * 1000);
+		}
+	}, []);
 
-    async function exchangeCodeForToken(code, state) {
-        // if (localStorage)
-        try {
-            const response = await axios.post("http://localhost:8080/callback", { code, state });
-            console.log("Access token:", response.data.access_token);
-            localStorage.setItem('AccessToken', response.data.access_token);
-        } catch (error) {
-            console.error("Failed to exchange code for token:", error);
-        }
-    }
+	async function exchangeCodeForToken(code, state) {
+		try {
+			const response = await axios.post("http://localhost:8080/callback", {
+				code,
+				state,
+			});
+			localStorage.setItem("AccessToken", response.data.access_token);
+			localStorage.setItem("RefreshToken", response.data.refresh_token);
+			localStorage.setItem("ExpiryTime", response.data.expires_in);
+		} catch (error) {
+			console.error(
+				"Failed to exchange code for token or a new access token is required"
+			);
+			if (
+				error.response.data.error === "invalid_grant" ||
+				error.response.data.error_description === "Authorization code expired"
+			) {
+				getNewAccessToken();
+			}
+		}
+	}
 
-    async function getUserProfile() {
-        const access_token = localStorage.getItem("AccessToken");
+	async function getUserProfile() {
+		const access_token = localStorage.getItem("AccessToken");
+		if (!access_token) {
+			console.error("Access token not found");
+			return;
+		}
+		try {
+			const response = await axios.get("http://localhost:8080/user/profile", {
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+				},
+			});
+			setProfileData(response.data);
+			return profileData;
+		} catch (error) {
+			console.error(
+				"fail to get profile",
+				error.response?.data || error.message
+			);
 
-        if (!access_token) {
-            console.error("Access token not found");
-            return;
-        }
-        console.log('check access token before post req', access_token)
-        try {
-            const response = await axios.get('http://localhost:8080/user/profile', {
-                headers: {
-                    Authorization: `Bearer ${access_token}`,
-                },
-                });
-            console.log(response.data);
-            setProfileData(response.data);
-        return profileData;
-        } catch (error) {
-            console.error("fail to get profile",  error.response?.data || error.message);
-        }
-        
-    }
+			//HOPEFULLY THIS WORKS?
+			if (
+				error.response.data.error === "invalid_grant" ||
+				error.response.data.error_description === "Authorization code expired"
+			) {
+				getNewAccessToken();
+			}
+		}
+	}
 
-    // if (profileData === null) {
-    //     return(<div>Authenticating...</div>);
-    // }
+	async function getPlaylists() {
+		const access_token = localStorage.getItem("AccessToken");
+		if (!access_token) {
+			console.error("Access token not found");
+			return;
+		}
+		try {
+			const response = await axios.get("http://localhost:8080/user/playlists", {
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+				},
+			});
+			setPlaylists(response.data);
+			return playlists;
+		} catch (error) {
+			console.error(
+				"failed to get playlists",
+				error.response?.data || error.message
+			);
 
-    return (
-        <>
-        
-        <button onClick={getUserProfile}>Click me!</button>
+			//HOPEFULLY THIS WORKS?
+			if (
+				error.response.data.error === "invalid_grant" ||
+				error.response.data.error_description === "Authorization code expired"
+			) {
+				getNewAccessToken();
+			}
+		}
+	}
+	// if (profileData === null) {
+	//     return(<div>Authenticating...</div>);
+	// }
 
-        {profileData? <p>{profileData.display_name}</p>: "" }
-        
-        </>
-        )
+	return (
+		<>
+			<button onClick={getUserProfile}>Get my info!</button>
+			<button onClick={getPlaylists}>Show me my playlists!</button>
+			{profileData ? (
+				<div>
+					<p>Username: {profileData.display_name}</p>
+					<p>Email: {profileData.email}</p>
+				</div>
+			) : (
+				""
+			)}
+			{playlists ? (
+				<ul>
+					<h2>Playlists: {playlists.total}</h2>
+					{playlists.items.map((playlist) => {
+						<li key={playlist.id}>
+							<img src={playlist.images[0].url} />
+							<p>{playlist.name}</p>
+							<p>tracks:{playlist.tracks.total}</p>
+                            <p>URL:{playlist.uri}</p>
+						</li>;
+					})}
+				</ul>
+			) : (
+				""
+			)}
+		</>
+	);
 }

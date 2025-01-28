@@ -29,4 +29,4 @@ app.get("/", (_req, res) => {
 
 app.listen(PORT, () => {
     console.log(`running at http://localhost:${PORT}`);
-  });
+});
