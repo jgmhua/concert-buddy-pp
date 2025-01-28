@@ -40,7 +40,7 @@ router.get("/playlists", async (req, res) => {
 			.json({ error: "Missing or invalid Authorization header" });
 	}
 
-	try {
+	// try {
 		const userPlaylists = await axios.get(
 			`https://api.spotify.com/v1/me/playlists`,
 			{
@@ -51,11 +51,13 @@ router.get("/playlists", async (req, res) => {
 		);
     console.log("user's playlists:", userPlaylists);
     // res.json({userPlaylists});
-    res.send(userPlaylists);
-	} catch (error) {
-    console.error("Error fetching user's playlists");
-		res.status(500).send(error);
-  }
+    res.send(userPlaylists.data);
+    console.log("User's playlists:", JSON.stringify(userPlaylists.data, null, 2));
+
+	// } catch (error) {
+  //   console.error("Error fetching user's playlists");
+	// 	res.status(500).send(error);
+  // }
 });
 
 export default router;

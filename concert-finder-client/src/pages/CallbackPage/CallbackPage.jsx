@@ -89,6 +89,7 @@ export default function CallbackPage() {
 					Authorization: `Bearer ${access_token}`,
 				},
 			});
+            console.log("playlist data frontend", response.data.items)
 			setPlaylists(response.data);
 			return playlists;
 		} catch (error) {
@@ -125,13 +126,14 @@ export default function CallbackPage() {
 			{playlists ? (
 				<ul>
 					<h2>Playlists: {playlists.total}</h2>
-					{playlists.items.map((playlist) => {
-						<li key={playlist.id}>
+					{playlists.items.map((playlist, i) => {
+                        return (
+						<li key={i}>
 							<img src={playlist.images[0].url} />
 							<p>{playlist.name}</p>
 							<p>tracks:{playlist.tracks.total}</p>
                             <p>URL:{playlist.uri}</p>
-						</li>;
+						</li>);
 					})}
 				</ul>
 			) : (
