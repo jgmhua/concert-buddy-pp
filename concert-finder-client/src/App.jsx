@@ -5,6 +5,9 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import CallbackPage from "./pages/CallbackPage/CallbackPage";
+
+const { VITE_BASE_URL, VITE_PORT } = import.meta.env;
 
 export default function App() {
 	
@@ -14,8 +17,8 @@ export default function App() {
 				<Header />
 				<Routes>
 					<Route path="/" element={<LoginPage />} />
-					<Route path="/login" element={<Navigate to="/" />} />
-					<Route path="/users/:displayName" element={<HomePage />} />
+					<Route path="/home" element={<Navigate to="/" />} />
+					<Route path="/callback" element={<CallbackPage />} />
 					<Route path="/notfound" element={<NotFoundPage />} />
 					<Route path="*" element={<Navigate to="/notfound" />} />
 				</Routes>
