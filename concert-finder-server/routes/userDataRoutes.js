@@ -49,13 +49,43 @@ router.get("/playlists", async (req, res) => {
 				},
 			}
 		);
-    console.log("user's playlists:", userPlaylists);
-    // res.json({userPlaylists});
-    res.send(userPlaylists);
+		console.log("user's playlists:", userPlaylists.data);
+		// res.json({userPlaylists});
+		res.send(userPlaylists.data);
 	} catch (error) {
-    console.error("Error fetching user's playlists");
+		console.error("Error fetching user's playlists");
 		res.status(500).send(error);
-  }
+	}
+});
+
+router.get("/playlists/:playlist_id", async (req, res) => {
+	const authHeader = req.headers.authorization;
+	const access_token = authHeader.split(" ")[1];
+
+	if (!authHeader || !authHeader.startsWith("Bearer ")) {
+		return res
+			.status(401)
+			.json({ error: "Missing or invalid Authorization header" });
+	}
+	const { playlist_id } = req.params;
+  console.log("playlist id:", playlist_id);
+
+	try {
+		const playlistDetails = await axios.get(
+			`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
+			{
+				headers: {
+					Authorization: "Bearer " + access_token,
+				},
+			}
+		);
+
+		console.log("playlist details?", playlistDetails.data);
+		res.send(playlistDetails.data);
+	} catch (error) {
+		console.error("error fetching shared playlist", error);
+		res.status(500).send(error);
+	}
 });
 
 export default router;

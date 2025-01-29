@@ -3,6 +3,7 @@ import querystring from "querystring";
 const router = express.Router();
 
 const { CLIENT_ID, REDIRECT_URL } = process.env;
+let scope = "user-read-private user-read-email playlist-read-private playlist-read-collaborative";
 
 const generateRandomString = (length = 16) => {
 	const characters =
@@ -17,7 +18,6 @@ const generateRandomString = (length = 16) => {
 let state = generateRandomString();
 
 router.get("/", async (req, res) => {
-	let scope = "user-read-private user-read-email";
 	res.redirect(
 		"https://accounts.spotify.com/authorize?" +
 			querystring.stringify({
@@ -32,7 +32,6 @@ router.get("/", async (req, res) => {
 
 router.get("/url", (req, res) => {
 	const state = generateRandomString();
-	const scope = "user-read-private user-read-email user-top-read";
 
 	const spotifyAuthUrl =
 		"https://accounts.spotify.com/authorize?" +
