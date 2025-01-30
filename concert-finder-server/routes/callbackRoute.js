@@ -8,8 +8,6 @@ const { CLIENT_ID, REDIRECT_URL, CLIENT_SECRET, BASE_URL, PORT } = process.env;
 
 router.post('/', async (req, res) => {
 const { code, state } = req.body
-console.log("code backend:", code)
-console.log("state", state)
   
   if (state === null || state !== state) {
     return res.redirect('/#' + querystring.stringify({ error: 'state_mismatch' }));
@@ -35,12 +33,8 @@ console.log("state", state)
         }  
     );
     console.log('token response', response.data)
-    console.log('access token from backend', response.data.access_token)
-    res.status(200).json(response.data)
-
+    res.json(response.data)
   } catch (error) {
-    // console.error('Error fetching token', error.response?.data || error.message);
-    // res.status(500).send('Failed to exchange code for tokens.');
     res.status(500).send(error.response?.data || error.message);
   }
   });

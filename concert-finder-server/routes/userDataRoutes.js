@@ -1,9 +1,12 @@
 import axios from "axios";
 import express from "express";
-import querystring from "querystring";
 const router = express.Router();
 
-const { CLIENT_ID, REDIRECT_URL, CLIENT_SECRET, BASE_URL, PORT } = process.env;
+function delay(time) {
+	return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+//FIXME: NOT SURE WHAT'S GOING ON, BUT SOME OF THE ROUTES I WROTE YESTERDAY HAVE DISAPPEARED :(
 
 router.get("/profile", async (req, res) => {
 	const authHeader = req.headers.authorization;
@@ -25,9 +28,45 @@ router.get("/profile", async (req, res) => {
 		res.status(200).send(userData.data);
 	} catch (error) {
 		console.error("Error fetching profile");
-		res.status(500).send(error);
+		res.status(500).send(error.response);
 		// res.status(500).send("Failed to fetch profile.");
 	}
+});
+
+router.post("/profiles", async (req, res) => {
+	const authHeader = req.headers.authorization;
+	const access_token = authHeader.split(" ")[1];
+
+	if (!authHeader || !authHeader.startsWith("Bearer ")) {
+		return res
+			.status(401)
+			.json({ error: "Missing or invalid Authorization header" });
+	}
+
+	if (!req.body) {
+		return res
+			.status(401)
+			.json({ error: "Missing or invalid list of buddies" });
+	}
+
+	let listInfo = [];
+	//NOTE: req.body is an object!
+	const friendList = req.body;
+	for (const property in friendList) {
+		// console.log(`${property}: ${friendList[property]}`);
+		let friendData = await axios.get(
+			`https://api.spotify.com/v1/users/${friendList[property]}`,
+			{
+				headers: {
+					Authorization: "Bearer " + access_token,
+				},
+			}
+		);
+		// delay(1000).then(() => console.log('hopefully this helps with the API rate limit... 1s delay'));
+		listInfo = [...listInfo, friendData.data];
+	}
+	// delay(1000).then(() => console.log('final 1s delay before sending back...'));
+	res.status(200).send(listInfo);
 });
 
 router.get("/playlists", async (req, res) => {
@@ -40,7 +79,7 @@ router.get("/playlists", async (req, res) => {
 			.json({ error: "Missing or invalid Authorization header" });
 	}
 
-	// try {
+	try {
 		const userPlaylists = await axios.get(
 			`https://api.spotify.com/v1/me/playlists`,
 			{
@@ -49,15 +88,41 @@ router.get("/playlists", async (req, res) => {
 				},
 			}
 		);
-    console.log("user's playlists:", userPlaylists);
-    // res.json({userPlaylists});
-    res.send(userPlaylists.data);
-    console.log("User's playlists:", JSON.stringify(userPlaylists.data, null, 2));
+		console.log("user's playlists:", userPlaylists.data);
+		return res.send(userPlaylists.data);
+	} catch (error) {
+		console.error("Error fetching user's playlists", error.response);
+		return res.status(500).send(error.response);
+	}
+});
 
-	// } catch (error) {
-  //   console.error("Error fetching user's playlists");
-	// 	res.status(500).send(error);
-  // }
+router.get("/playlists/:playlist_id", async (req, res) => {
+	const { playlist_id } = req.params;
+	const authHeader = req.headers.authorization;
+	const access_token = authHeader.split(" ")[1];
+	console.log("playlist id:", playlist_id);
+
+	if (!authHeader || !authHeader.startsWith("Bearer ")) {
+		return res
+			.status(401)
+			.json({ error: "Missing or invalid Authorization header" });
+	}
+
+	try {
+		const playlistDetails = await axios.get(
+			`https://api.spotify.com/v1/playlists/${playlist_id}`,
+			{
+				headers: {
+					Authorization: "Bearer " + access_token,
+				},
+			}
+		);
+		console.log("playlist details:", playlistDetails.data);
+		return res.send(playlistDetails.data);
+	} catch (error) {
+		console.error("Error fetching playlist details", error.response);
+		return res.status(500).json(error.response);
+	}
 });
 
 export default router;

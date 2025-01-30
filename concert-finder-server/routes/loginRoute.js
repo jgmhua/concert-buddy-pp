@@ -1,21 +1,13 @@
 import express from "express";
 import querystring from "querystring";
+import generateRandomString from "../utils/randomStringGenerator.js";
 const router = express.Router();
 
 const { CLIENT_ID, REDIRECT_URL } = process.env;
 let scope = "user-read-private user-read-email playlist-read-private playlist-read-collaborative";
 
-const generateRandomString = (length = 16) => {
-	const characters =
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	let result = "";
-	for (let i = 0; i < length; i++) {
-		result += characters.charAt(Math.floor(Math.random() * characters.length));
-	}
-	return result;
-};
-
 let state = generateRandomString();
+console.log("state:", state);
 
 router.get("/", async (req, res) => {
 	res.redirect(
@@ -47,3 +39,13 @@ router.get("/url", (req, res) => {
 });
 
 export default router;
+
+// const generateRandomString = (length = 16) => {
+// 	const characters =
+// 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+// 	let result = "";
+// 	for (let i = 0; i < length; i++) {
+// 		result += characters.charAt(Math.floor(Math.random() * characters.length));
+// 	}
+// 	return result;
+// };
