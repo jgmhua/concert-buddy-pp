@@ -7,7 +7,6 @@ const { CLIENT_ID, REDIRECT_URL } = process.env;
 let scope = "user-read-private user-read-email playlist-read-private playlist-read-collaborative";
 
 let state = generateRandomString();
-console.log("state:", state);
 
 router.get("/", async (req, res) => {
 	res.redirect(

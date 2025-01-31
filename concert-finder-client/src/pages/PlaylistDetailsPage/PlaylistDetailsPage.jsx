@@ -24,7 +24,6 @@ export default function PlaylistDetailsPage() {
 	const [eventsList, setEventsLists] = useState(null);
 
 	function findConcerts() {
-		console.log("artistsLists in findconcerts function:", artistsList);
 		getEventsByArtists(artistsList, eventsList, setEventsLists);
 	}
 

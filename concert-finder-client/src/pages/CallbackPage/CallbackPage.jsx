@@ -43,7 +43,6 @@ export default function CallbackPage() {
 
 		//once exchange for token occurs, grab user info to display (replaced button)
 		if (localStorage.getItem("AccessToken")) {
-			console.log("access token:", localStorage.getItem("AccessToken"));
 			getUserProfile(profileData, setProfileData);
 		}
 

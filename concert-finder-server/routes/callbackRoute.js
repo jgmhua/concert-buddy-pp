@@ -32,7 +32,6 @@ const { code, state } = req.body
               },
         }  
     );
-    console.log('token response', response.data)
     res.json(response.data)
   } catch (error) {
     res.status(500).send(error.response?.data || error.message);

@@ -35,7 +35,6 @@ async function getEventsByArtists(artistsList, eventsList, setEventsLists) {
                 shortenedList.push(temp);
             })
 		});
-		console.log("shortenedList:", shortenedList);
 		setEventsLists(shortenedList);
 		return eventsList;
 	} catch (error) {
