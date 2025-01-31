@@ -1,0 +1,94 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+
+.playlist {
+    width: 100%;
+    @include flex-box(column, center, center);
+    gap: 4rem;
+
+    &__overview {
+        @include flex-box(column, center, center);
+        width: 100%;
+        gap: $xs-gap;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__cover {
+        padding: $xs-gap 0;
+    }
+
+    &__text {
+        font-size: 1.125rem;
+        color: blueviolet;
+
+        &--details {
+            font-size: 1rem;
+            font-weight: bold;
+            color: black;
+        }
+    }
+
+    &__url {
+        font-size: 0.75rem;
+    }
+}
+
+.friends {
+    width: 100%;
+    @include flex-box(column, center, center);
+    gap: $xs-gap;
+    position: relative;
+
+    &__header {
+        font-size: 1.125rem;
+        color: blueviolet;
+    }
+
+    &__list-container {
+        @include flex-box(column, center, center, space-betweeen, wrap);
+        gap: $xs-gap;
+    }
+
+    &__list {
+        @include flex-box(row, center, center, center, wrap);
+        gap: $xs-gap;
+    }
+}
+
+.friend {
+    @include flex-box(row, center, center, center);
+    gap: $xs-gap;
+
+    &__name {
+        font-size: 1rem;
+        font-weight: bold;
+        color: black;
+    }
+
+    &__pic-div {
+        max-width: 4rem;
+        min-width: 4rem;
+        max-height: 4rem;
+        min-height: 4rem;
+        border-radius: 50%;
+        border: .1875rem solid gray;
+        overflow: hidden;
+
+        &--default {
+            color: gray;
+            background-color: gray;
+        }
+    }
+
+    &__pic {
+        width: 100%;
+        color: gray;
+
+        &--default {
+            background-color: gray;
+        }
+    }
+}

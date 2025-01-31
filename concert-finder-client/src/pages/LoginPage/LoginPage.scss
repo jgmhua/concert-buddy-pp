@@ -1,7 +1,25 @@
 @use "../../styles/partials/_variables.scss" as *;
 @use "../../styles/partials/_mixins.scss" as *;
 
+//TODO: figure out typography standards later? 
 
 .login {
+    @include flex-box(column, center, center);
     width: 100%;
+    gap: $mobile-spacing;
+
+    &__blurb {
+        @extend .login;
+    }
+
+    &__header {
+        font-size: x-large;
+        font-weight: 700;
+        color: blueviolet;
+    }
+
+    &__subheader {
+        font-size: medium;
+        font-weight: 600;
+    }
 }

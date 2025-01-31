@@ -1,0 +1,72 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+
+.callback {
+    @include flex-box(column, center, center);
+    width: 100%;
+    gap: $mobile-spacing;
+
+    @include tablet {
+        gap: $tablet-spacing;
+    }
+
+    @include desktop {
+        gap: $desktop-spacing;
+    }
+
+    &__actions {
+        @include flex-box(row, space-around, center);
+        width: 100%;
+        padding: $mobile-spacing;
+
+        @include tablet {
+            padding: $tablet-spacing;
+        }
+
+        @include desktop {
+            padding: $desktop-spacing;
+        }
+    }
+}
+
+.user-info {
+    @extend .callback;
+    gap: $xs-gap;
+
+    &__text {
+        font-size: 1.125rem;
+        color: blueviolet;
+
+        &--bold {
+            font-weight: bold;
+            color: black;
+        }
+    }
+}
+
+.playlists {
+    @extend .callback;
+    gap: $mobile-spacing;
+
+    &__header {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    &__shared-list {
+        @include flex-box(row, center, center, null, wrap);
+        width: 100%;
+        gap: $mobile-spacing;
+        list-style: none;
+    }
+
+    &__item {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: $mobile-spacing;
+        list-style: none;
+    }
+
+}

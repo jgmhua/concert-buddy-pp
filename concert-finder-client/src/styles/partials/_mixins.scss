@@ -28,3 +28,10 @@
     flex-wrap: $wrap;
     flex-grow: $grow;
 }
+
+/* Styles? */
+@mixin basic-rounded-border {
+    border: .125rem solid lightgray;
+    border-radius: 1.25rem;
+    padding: $mobile-spacing;
+}

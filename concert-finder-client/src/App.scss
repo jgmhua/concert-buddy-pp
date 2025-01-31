@@ -8,7 +8,7 @@
 }
 
 .app {
-	@include flex-box(column, space-between, flex-end);
+	@include flex-box(column, flex-start, center);
 	width: 100%;
 	min-height: 100vh;
 	gap: $mobile-spacing;
@@ -23,6 +23,14 @@
 		gap: $desktop-spacing;
 		padding: $desktop-spacing;
 	}
+
+	&__header-container {
+		justify-self: flex-start;
+	}
+
+	&__footer-container {
+		justify-self: flex-end;
+	}
 }
 
 body {
@@ -30,6 +38,10 @@ body {
     font-size: 0.75rem;
     font-weight: 400;
 	line-height: 1rem;
+}
+
+ul,ol,li {
+	list-style: none;
 }
 
 a,
