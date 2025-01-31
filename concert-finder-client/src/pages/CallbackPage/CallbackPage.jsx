@@ -101,14 +101,6 @@ export default function CallbackPage() {
 								<li
 									className="playlists__item"
 									key={playlist.id}
-									// onClick={() => {
-									// 	getPlaylistDetails(
-									// 		playlist.id,
-									// 		playlistUsers,
-									// 		setPlaylistUsers
-									// 	);
-									// 	setShowList(true);
-									// }}
 								>
 									<section className="playlists__playlist">
 										<Link className="playlists__url" to={`/playlists/${playlist.id}`}>
@@ -122,49 +114,6 @@ export default function CallbackPage() {
 											</p>
 										</Link>
 									</section>
-									{
-									/* {showList && friendsInfo ? (
-										<section className="friends">
-											<h3 className="friends__header">Buddies in Playlist*</h3>
-											<div className="friends__list-container">
-												<ul className="friends__list">
-													{friendsInfo.map((friend) => {
-														return (
-															<li className="friend" key={friend.id}>
-																<p className="friend__name">
-																	{friend.display_name}
-																</p>
-																<div
-																	className={`friend__pic-div ${
-																		friend.images.length == 0
-																			? "friend__pic-div--default"
-																			: ""
-																	}`}
-																>
-																	<img
-																		className="friend__pic"
-																		src={
-																			friend.images.length > 0
-																				? friend.images[0].url
-																				: ""
-																		}
-																	/>
-																</div>
-															</li>
-														);
-													})}
-												</ul>
-												<p className="friends__asterisk">
-													<small>
-														*List of users displayed may not be complete.
-													</small>
-												</p>
-											</div>
-										</section>
-									) : (
-										""
-									)} */
-									}
 								</li>
 							);
 						})}
@@ -177,22 +126,3 @@ export default function CallbackPage() {
 	);
 }
 
-{
-	/* {playlistUsers ? (
-		<section>
-			<h3>Buddies in Playlist*:</h3>
-			<ul>
-				{Array.from(playlistUsers).map((user) => {
-					return (
-						<li key={user}>
-							<p>{user}</p>
-						</li>
-					);
-				})}
-			</ul>
-			<p><small>*List of users displayed may not be complete.</small></p>
-		</section>
-	) : (
-		""
-	)} */
-}

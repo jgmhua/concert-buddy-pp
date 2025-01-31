@@ -221,38 +221,3 @@ export {
 	getPlaylistDetails,
 	getBuddiesProfiles,
 };
-
-/* async function getSinglePlaylist() {
-	const access_token = localStorage.getItem("AccessToken");
-	if (!access_token) {
-		console.error("Access token not found");
-		return;
-	}
-	try {
-		const response = await axios.get(
-			"http://localhost:8080/user/playlists/37i9dQZF1EJyFxg8aeaPAD",
-			{
-				headers: {
-					Authorization: `Bearer ${access_token}`,
-				},
-			}
-		);
-		setSharedPlaylist(response.data);
-		console.log("shared playlist:", response.data);
-		return sharedPlaylist;
-	} catch (error) {
-		console.error(
-			"failed to get playlists",
-			error.response?.data || error.message
-		);
-
-		//HOPEFULLY THIS WORKS?
-		if (
-			error.response.data.error === "invalid_grant" ||
-			error.response.data.error_description === "Authorization code expired"
-		) {
-			getNewAccessToken();
-		}
-	}
-}
-*/
