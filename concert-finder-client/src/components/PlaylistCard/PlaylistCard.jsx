@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
+import "./PlaylistCard.scss";
 
 export default function PlaylistCard( { id, name, image, tracksTotal }) {
 
@@ -18,7 +19,7 @@ export default function PlaylistCard( { id, name, image, tracksTotal }) {
                             src={image}
                         />
                         <p className="playlists__text playlists__text--details">
-                            `Total tracks: ${tracksTotal}`
+                            Total tracks: {tracksTotal}
                         </p>
                     </Link>
                 </section>
