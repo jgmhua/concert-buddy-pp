@@ -1,34 +1,7 @@
 import axios from "axios";
-import getNewAccessToken from "./refreshToken";
+import { getNewAccessToken } from "./authAndTokens";
 
 const { VITE_BASE_URL, VITE_PORT } = import.meta.env;
-
-async function exchangeCodeForToken(code, state, init, setInit) {
-	try {
-		const response = await axios.post(
-			`${VITE_BASE_URL}:${VITE_PORT}/callback`,
-			{
-				code,
-				state,
-			}
-		);
-		localStorage.setItem("AccessToken", response.data.access_token);
-		localStorage.setItem("RefreshToken", response.data.refresh_token);
-		localStorage.setItem("ExpiryTime", response.data.expires_in);
-		setInit(false);
-		console.log("tokens exchanged!");
-	} catch (error) {
-		console.error(
-			"Failed to exchange code for token or a new access token is required"
-		);
-		if (!init) {
-			error.response.data.error === "invalid_grant" ||
-			error.response.data.error_description === "Authorization code expired"
-				? getNewAccessToken()
-				: "";
-		}
-	}
-}
 
 async function getUserProfile(profileData, setProfileData) {
 	const access_token = localStorage.getItem("AccessToken");
@@ -235,7 +208,6 @@ async function getBuddiesProfiles(playlistusers, friendsInfo, setFriendsInfo) {
 }
 
 export {
-	exchangeCodeForToken,
 	getUserProfile,
 	getPlaylists,
 	getSinglePlaylist,

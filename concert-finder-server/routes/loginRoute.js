@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
 	);
 });
 
-router.get("/url", (req, res) => {
+router.get("/url", (_req, res) => {
 	const state = generateRandomString();
 
 	const spotifyAuthUrl =
@@ -38,13 +38,3 @@ router.get("/url", (req, res) => {
 });
 
 export default router;
-
-// const generateRandomString = (length = 16) => {
-// 	const characters =
-// 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-// 	let result = "";
-// 	for (let i = 0; i < length; i++) {
-// 		result += characters.charAt(Math.floor(Math.random() * characters.length));
-// 	}
-// 	return result;
-// };

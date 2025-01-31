@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import getNewAccessToken from "../../../utils/refreshToken";
 import {
 	exchangeCodeForToken,
-	getUserProfile,
-	getPlaylists,
-	getPlaylistDetails,
-	getBuddiesProfiles,
-} from "../../../utils/userFunctions";
+	getNewAccessToken,
+} from "../../../utils/authAndTokens";
+import { getUserProfile, getPlaylists } from "../../../utils/userFunctions";
 import Button from "../../components/Button/Button";
 import "./CallbackPage.scss";
 
 /* Bigger picture items/todos: */
-//TODO: WE NEED TO ADD CONCERT SEARCHING FUNCTIONALITY!
 //TODO: NOW THAT WE CAN SEE THE USERS, WE WANT TO ADD FUNCTIONALITY THAT ALLOWS THE USER TO SEND INVITES TO THEIR FRIENDS ABOUT SELECTED CONCERTS...
 
 /* Not as urgent todos:*/
@@ -21,45 +17,29 @@ import "./CallbackPage.scss";
 //TODO: Make each playlist list-item the same size...
 
 /* Fix mes based on urgency/priority */
-//FIXME: Make sure that when we display the shared users, it doesn't appear for ALL playlists, only the one that was selected!
-
 //FIXME: Might have to modify the check for access token rather than just setting a timer...
 
 export default function CallbackPage() {
 	const [profileData, setProfileData] = useState(null);
 	const [playlists, setPlaylists] = useState(null);
 	const [searchParams] = useSearchParams();
-	const [init, setInit] = useState(true);
-	// const [playlistUsers, setPlaylistUsers] = useState(null);
-	// const [friendsInfo, setFriendsInfo] = useState(null);
-	// const [showList, setShowList] = useState(false);
 
 	useEffect(() => {
 		const code = searchParams.get("code");
 		const state = searchParams.get("state");
 		if (code) {
-			exchangeCodeForToken(code, state, init, setInit);
+			exchangeCodeForToken(code, state);
 		}
 
 		//once exchange for token occurs, grab user info to display (replaced button)
 		if (localStorage.getItem("AccessToken")) {
+			if (Date.now() > localStorage.getItem("ExpiryTime")) {
+				console.log("Access token expired. Refreshing...");
+				getNewAccessToken();
+			}
 			getUserProfile(profileData, setProfileData);
 		}
-
-		//sets timer for token refresh!
-		const expiryTime = localStorage.getItem("ExpiryTime");
-		if (expiryTime) {
-			setTimeout(getNewAccessToken, expiryTime * 1000);
-			console.log("set refresh token function with expiry time.");
-		}
 	}, []);
-
-	// useEffect(() => {
-	// 	if (playlistUsers) {
-	// 		const arrUserList = Array.from(playlistUsers);
-	// 		getBuddiesProfiles(arrUserList, friendsInfo, setFriendsInfo);
-	// 	}
-	// }, [playlistUsers]);
 
 	return (
 		<article className="callback">
@@ -85,7 +65,7 @@ export default function CallbackPage() {
 			</section>
 			<section className="callback__actions">
 				<Button
-					text="My playlists"
+					text="See Playlists with Buddies"
 					handleFunc={() => getPlaylists(playlists, setPlaylists)}
 				/>
 			</section>
@@ -97,12 +77,12 @@ export default function CallbackPage() {
 					<ul className="playlists__shared-list">
 						{playlists.map((playlist) => {
 							return (
-								<li
-									className="playlists__item"
-									key={playlist.id}
-								>
+								<li className="playlists__item" key={playlist.id}>
 									<section className="playlists__playlist">
-										<Link className="playlists__url" to={`/playlists/${playlist.id}`}>
+										<Link
+											className="playlists__url"
+											to={`/playlists/${playlist.id}`}
+										>
 											<h3 className="playlists__text">{playlist.name}</h3>
 											<img
 												className="playlists__cover"
@@ -124,4 +104,3 @@ export default function CallbackPage() {
 		</article>
 	);
 }
-

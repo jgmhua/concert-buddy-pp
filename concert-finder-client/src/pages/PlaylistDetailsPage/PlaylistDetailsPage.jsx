@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link, useParams } from "react-router-dom";
-import getNewAccessToken from "../../../utils/refreshToken";
+import { Link, useParams } from "react-router-dom";
+import { checkAccessToken } from "../../../utils/authAndTokens";
 import {
-	exchangeCodeForToken,
-	getUserProfile,
 	getPlaylists,
 	getSinglePlaylist,
 	getPlaylistDetails,
@@ -32,6 +30,7 @@ export default function PlaylistDetailsPage() {
 	}
 
 	useEffect(() => {
+		checkAccessToken();
 		getSinglePlaylist(playlistId, playlist, setPlaylist);
 		getPlaylistDetails(
 			playlistId,

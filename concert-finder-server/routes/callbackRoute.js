@@ -6,36 +6,42 @@ const router = express.Router();
 
 const { CLIENT_ID, REDIRECT_URL, CLIENT_SECRET, BASE_URL, PORT } = process.env;
 
-router.post('/', async (req, res) => {
-const { code, state } = req.body
-  
-  if (state === null || state !== state) {
-    return res.redirect('/#' + querystring.stringify({ error: 'state_mismatch' }));
-  }
+router.post("/", async (req, res) => {
+	const { code, state } = req.body;
 
-  if (!code) {
-    console.error("No authorization code was received.");
-    res.status(400).send("Authorization code is required.")
-  }
+	if (state === null || state !== state) {
+		return res.redirect(
+			"/#" + querystring.stringify({ error: "state_mismatch" })
+		);
+	}
 
-  try {
-    const response = await axios.post('https://accounts.spotify.com/api/token',
-        new URLSearchParams({
-            code: code,
-            redirect_uri: REDIRECT_URL,
-            grant_type: 'authorization_code', 
-        }).toString(),
-        {
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + (Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'))
-              },
-        }  
-    );
-    res.json(response.data)
-  } catch (error) {
-    res.status(500).send(error.response?.data || error.message);
-  }
-  });
+	if (!code) {
+		console.error("No authorization code was received.");
+		res.status(400).send("Authorization code is required.");
+	}
+
+	try {
+		const response = await axios.post(
+			"https://accounts.spotify.com/api/token",
+			new URLSearchParams({
+				code: code,
+				redirect_uri: REDIRECT_URL,
+				grant_type: "authorization_code",
+			}).toString(),
+			{
+				headers: {
+					"content-type": "application/x-www-form-urlencoded",
+					Authorization:
+						"Basic " +
+						Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64"),
+				},
+			}
+		);
+		const access = response.data;
+		res.json({ ...access });
+	} catch (error) {
+		res.status(500).send(error.response?.data || error.message);
+	}
+});
 
 export default router;
