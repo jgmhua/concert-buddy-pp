@@ -25,10 +25,10 @@ router.get("/profile", async (req, res) => {
 			},
 		});
 		console.log(userData.data, "user's profile data");
-		res.status(200).send(userData.data);
+		res.send(userData.data);
 	} catch (error) {
 		console.error("Error fetching profile");
-		res.status(500).send(error.response);
+		res.status(500).send(error);
 		// res.status(500).send("Failed to fetch profile.");
 	}
 });

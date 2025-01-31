@@ -111,7 +111,6 @@ async function getSinglePlaylist(playlistId, playlist, setPlaylist) {
 			}
 		);
 		setPlaylist(response.data);
-		console.log("shared playlist:", response.data);
 		return playlist;
 	} catch (error) {
 		console.error(
@@ -128,7 +127,13 @@ async function getSinglePlaylist(playlistId, playlist, setPlaylist) {
 	}
 }
 
-async function getPlaylistDetails(playlistId, playlistUsers, setPlaylistUsers) {
+async function getPlaylistDetails(
+	playlistId,
+	playlistUsers,
+	setPlaylistUsers,
+	artistsList,
+	setArtistsLists
+) {
 	console.log("playlistId in userFunctions?", playlistId);
 	const access_token = localStorage.getItem("AccessToken");
 	if (!access_token) {
@@ -149,10 +154,28 @@ async function getPlaylistDetails(playlistId, playlistUsers, setPlaylistUsers) {
 			usersList.push(track.added_by.id)
 		);
 
+		const filteredArtists = [];
+		const tracks = response.data.tracks.items;
+		tracks.map((track) => filteredArtists.push(track.track.artists[0].name));
+
+		//sort artists by most popular
+		function sortByFrequency(arr) {
+			// Step 1: Create a frequency map using Map()
+			const frequencyMap = new Map();
+			arr.forEach((item) => {
+				frequencyMap.set(item, (frequencyMap.get(item) || 0) + 1);
+			});
+			const frequencyArray = Array.from(frequencyMap.entries());
+			// Step 2: Convert map to an array and sort by frequency
+			return frequencyArray.sort((a, b) => b[1] - a[1]).map((item) => item[0]);
+		}
+
+		const sortedList = sortByFrequency(filteredArtists);
+		setArtistsLists(sortedList.slice(0, 10));
+
 		const setOfUsersList = new Set(usersList);
-		// console.log("set of usersList?",setOfUsersList);
 		setPlaylistUsers(setOfUsersList);
-		return playlistUsers;
+		return playlistUsers, artistsList;
 	} catch (error) {
 		console.error(
 			"failed to get playlist details",
@@ -169,7 +192,6 @@ async function getPlaylistDetails(playlistId, playlistUsers, setPlaylistUsers) {
 }
 
 async function getBuddiesProfiles(playlistusers, friendsInfo, setFriendsInfo) {
-	console.log("playlist users in userFunctions?", playlistusers);
 	const access_token = localStorage.getItem("AccessToken");
 	if (!access_token) {
 		console.error("Access token not found");
@@ -186,7 +208,6 @@ async function getBuddiesProfiles(playlistusers, friendsInfo, setFriendsInfo) {
 			}
 		);
 
-		console.log("list of users' info?", response.data);
 		const shortenedList = [];
 		response.data.filter((friend) => {
 			let temp = {
@@ -196,7 +217,7 @@ async function getBuddiesProfiles(playlistusers, friendsInfo, setFriendsInfo) {
 			};
 			shortenedList.push(temp);
 		});
-		console.log("shortened list:", shortenedList);
+
 		setFriendsInfo(shortenedList);
 		return friendsInfo;
 	} catch (error) {
@@ -217,7 +238,7 @@ export {
 	exchangeCodeForToken,
 	getUserProfile,
 	getPlaylists,
-    getSinglePlaylist,
+	getSinglePlaylist,
 	getPlaylistDetails,
 	getBuddiesProfiles,
 };
