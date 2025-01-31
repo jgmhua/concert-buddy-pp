@@ -24,12 +24,10 @@ router.get("/profile", async (req, res) => {
 				Authorization: "Bearer " + access_token,
 			},
 		});
-		console.log(userData.data, "user's profile data");
-		res.status(200).send(userData.data);
+		res.send(userData.data);
 	} catch (error) {
 		console.error("Error fetching profile");
-		res.status(500).send(error.response);
-		// res.status(500).send("Failed to fetch profile.");
+		res.status(500).send(error);
 	}
 });
 
@@ -65,7 +63,6 @@ router.post("/profiles", async (req, res) => {
 		// delay(1000).then(() => console.log('hopefully this helps with the API rate limit... 1s delay'));
 		listInfo = [...listInfo, friendData.data];
 	}
-	// delay(1000).then(() => console.log('final 1s delay before sending back...'));
 	res.status(200).send(listInfo);
 });
 
@@ -88,7 +85,6 @@ router.get("/playlists", async (req, res) => {
 				},
 			}
 		);
-		console.log("user's playlists:", userPlaylists.data);
 		return res.send(userPlaylists.data);
 	} catch (error) {
 		console.error("Error fetching user's playlists", error.response);
@@ -100,7 +96,6 @@ router.get("/playlists/:playlist_id", async (req, res) => {
 	const { playlist_id } = req.params;
 	const authHeader = req.headers.authorization;
 	const access_token = authHeader.split(" ")[1];
-	console.log("playlist id:", playlist_id);
 
 	if (!authHeader || !authHeader.startsWith("Bearer ")) {
 		return res
@@ -117,7 +112,6 @@ router.get("/playlists/:playlist_id", async (req, res) => {
 				},
 			}
 		);
-		console.log("playlist details:", playlistDetails.data);
 		return res.send(playlistDetails.data);
 	} catch (error) {
 		console.error("Error fetching playlist details", error.response);

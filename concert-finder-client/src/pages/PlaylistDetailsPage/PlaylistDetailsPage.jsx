@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link, useParams } from "react-router-dom";
-import getNewAccessToken from "../../../utils/refreshToken";
+import { Link, useParams } from "react-router-dom";
+import { checkAccessToken } from "../../../utils/authAndTokens";
 import {
-	exchangeCodeForToken,
-	getUserProfile,
 	getPlaylists,
 	getSinglePlaylist,
 	getPlaylistDetails,
 	getBuddiesProfiles,
 } from "../../../utils/userFunctions";
+import { getEventsByArtists } from "../../../utils/eventsFunctions";
 import Button from "../../components/Button/Button";
 import "./PlaylistDetailsPage.scss";
 
@@ -19,9 +18,11 @@ export default function PlaylistDetailsPage() {
 	const [playlist, setPlaylist] = useState(null);
 	const [playlistUsers, setPlaylistUsers] = useState(null);
 	const [friendsInfo, setFriendsInfo] = useState(null);
+	const [artistsList, setArtistsLists] = useState(null);
+	const [eventsList, setEventsLists] = useState(null);
 
 	function findConcerts() {
-		console.log("I do nothing at the moment!");
+		getEventsByArtists(artistsList, eventsList, setEventsLists);
 	}
 
 	function openModal() {
@@ -29,8 +30,15 @@ export default function PlaylistDetailsPage() {
 	}
 
 	useEffect(() => {
+		checkAccessToken();
 		getSinglePlaylist(playlistId, playlist, setPlaylist);
-		getPlaylistDetails(playlistId, playlistUsers, setPlaylistUsers);
+		getPlaylistDetails(
+			playlistId,
+			playlistUsers,
+			setPlaylistUsers,
+			artistsList,
+			setArtistsLists
+		);
 	}, []);
 
 	useEffect(() => {
@@ -52,6 +60,24 @@ export default function PlaylistDetailsPage() {
 								Total tracks: {playlist.tracks.total}
 							</p>
 						</Link>
+						<section className="playlist__top-artists">
+							{artistsList ? (
+								<>
+									<h3>Top Artists in Playlist</h3>
+									<ul>
+										{artistsList.map((artist) => {
+											return (
+												<li>
+													<p>{artist}</p>
+												</li>
+											);
+										})}
+									</ul>
+								</>
+							) : (
+								""
+							)}
+						</section>
 					</>
 				) : (
 					""
@@ -100,12 +126,54 @@ export default function PlaylistDetailsPage() {
 			/>
 			<section className="concerts">
 				<h2 className="concerts__header">Suggested Concerts</h2>
-				<ul className="concerts__list">
-					<li className="concerts__item">
-						<p>Name</p>
-						<Button text="Invite Friends to Concert!" handleFunc={openModal} />
-					</li>
-				</ul>
+				{eventsList ? (
+					<ul className="concerts__list">
+						{eventsList.map((event) => {
+							return (
+								<li key={event.id} className="concert">
+									<div className="concert__image-div">
+										<img className="concert__image" src={event.images} />
+									</div>
+									<h4 className="concert__name">{event.name}</h4>
+									<div className="concert__info">
+										<p className="concert__text">
+											<span className="concert__text concert__text--bold">
+												Date:{" "}
+											</span>
+											{event.dates.start.localDate}
+										</p>
+										<p className="concert__text">
+											<span className="concert__text concert__text--bold">
+												Location:{" "}
+											</span>
+											{event.venues.venues[0].city.name}
+										</p>
+										<p className="concert__text">
+											<span className="concert__text concert__text--bold">
+												Venue:{" "}
+											</span>
+											{event.venues.venues[0].name}
+										</p>
+									</div>
+									<div className="concert__btns">
+										<Button
+											text="📧"
+											handleFunc={openModal}
+											btnType="no-borders"
+										/>
+										<Button
+											text="↗"
+											handleFunc={openModal}
+											btnType="no-borders"
+										/>
+									</div>
+								</li>
+							);
+						})}
+					</ul>
+				) : (
+					""
+				)}
 			</section>
 		</article>
 	);

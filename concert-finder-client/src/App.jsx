@@ -1,8 +1,6 @@
 import "./App.scss";
-import axios from "axios";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import CallbackPage from "./pages/CallbackPage/CallbackPage";
 import PlaylistDetailsPage from "./pages/PlaylistDetailsPage/PlaylistDetailsPage";
