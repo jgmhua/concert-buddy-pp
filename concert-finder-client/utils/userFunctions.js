@@ -144,7 +144,7 @@ async function getPlaylistDetails(
 		}
 
 		const sortedList = sortByFrequency(filteredArtists);
-		setArtistsLists(sortedList.slice(0, 10));
+		setArtistsLists(sortedList.slice(0, 5));
 
 		const setOfUsersList = new Set(usersList);
 		setPlaylistUsers(setOfUsersList);

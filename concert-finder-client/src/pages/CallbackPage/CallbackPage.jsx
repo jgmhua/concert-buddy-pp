@@ -7,6 +7,7 @@ import {
 import { getUserProfile, getPlaylists } from "../../../utils/userFunctions";
 import Button from "../../components/Button/Button";
 import "./CallbackPage.scss";
+import PlaylistCard from "../../components/PlaylistCard/PlaylistCard";
 
 /* Bigger picture items/todos: */
 //TODO: NOW THAT WE CAN SEE THE USERS, WE WANT TO ADD FUNCTIONALITY THAT ALLOWS THE USER TO SEND INVITES TO THEIR FRIENDS ABOUT SELECTED CONCERTS...
@@ -74,26 +75,28 @@ export default function CallbackPage() {
 					<h2 className="playlists__header">
 						Shared Playlists {playlists.total}
 					</h2>
+					
 					<ul className="playlists__shared-list">
 						{playlists.map((playlist) => {
 							return (
-								<li className="playlists__item" key={playlist.id}>
-									<section className="playlists__playlist">
-										<Link
-											className="playlists__url"
-											to={`/playlists/${playlist.id}`}
-										>
-											<h3 className="playlists__text">{playlist.name}</h3>
-											<img
-												className="playlists__cover"
-												src={playlist.images[0].url}
-											/>
-											<p className="playlists__text playlists__text--details">
-												Total tracks: {playlist.tracks.total}
-											</p>
-										</Link>
-									</section>
-								</li>
+								<PlaylistCard id={playlist.id} name={playlist.name} image={playlist.images[0].url} tracksTotal={playlist.tracks.total}/>
+								// <li className="playlists__item" key={playlist.id}>
+								// 	<section className="playlists__playlist">
+								// 		<Link
+								// 			className="playlists__url"
+								// 			to={`/playlists/${playlist.id}`}
+								// 		>
+								// 			<h3 className="playlists__text">{playlist.name}</h3>
+								// 			<img
+								// 				className="playlists__cover"
+								// 				src={playlist.images[0].url}
+								// 			/>
+								// 			<p className="playlists__text playlists__text--details">
+								// 				Total tracks: {playlist.tracks.total}
+								// 			</p>
+								// 		</Link>
+								// 	</section>
+								// </li>
 							);
 						})}
 					</ul>
