@@ -18,9 +18,9 @@ export default function PlaylistCard( { id, name, image, tracksTotal }) {
                             className="playlists__cover"
                             src={image}
                         />
-                        <p className="playlists__text playlists__text--details">
+                        {/* <p className="playlists__text playlists__text--details">
                             Total tracks: {tracksTotal}
-                        </p>
+                        </p> */}
                     </Link>
                 </section>
             </li>
