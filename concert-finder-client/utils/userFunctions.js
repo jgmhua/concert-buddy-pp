@@ -63,7 +63,8 @@ async function getPlaylists(playlists, setPlaylists) {
 
 		if (
 			error.response.data.error === "invalid_grant" ||
-			error.response.data.error_description === "Authorization code expired"
+			error.response.data.error_description === "Authorization code expired" ||
+			error.response.data.status === 401
 		) {
 			getNewAccessToken();
 		}
@@ -88,6 +89,7 @@ async function getSinglePlaylist(playlistId, playlist, setPlaylist) {
 		setPlaylist(response.data);
 		return playlist;
 	} catch (error) {
+		console.log(error.status)
 		console.error(
 			"failed to get playlists",
 			error.response?.data || error.message
@@ -95,7 +97,8 @@ async function getSinglePlaylist(playlistId, playlist, setPlaylist) {
 
 		if (
 			error.response.data.error === "invalid_grant" ||
-			error.response.data.error_description === "Authorization code expired"
+			error.response.data.error_description === "Authorization code expired" ||
+			error.response.data.error_description === "The access token expired"
 		) {
 			getNewAccessToken();
 		}
