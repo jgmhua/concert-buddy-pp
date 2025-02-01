@@ -9,3 +9,14 @@
       opacity: 100%
     }
 }
+
+@keyframes slide-fade-left{
+    0% {
+      transform: translateX(-10%);
+      opacity: 0%
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 100%
+    }
+}

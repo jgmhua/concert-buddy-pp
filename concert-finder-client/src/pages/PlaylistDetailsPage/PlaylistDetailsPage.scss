@@ -21,10 +21,14 @@
         }
     }
 
+    &__url {
+        animation: margin 0.3s ease; 
+    }
+
     &__hover-block {
         display: flex;
         justify-content: center;
-        animation: 1s ease-out 0s 1 slide-fade-top;
+        animation: margin 0.3s ease; 
         
 
         &--open {
@@ -37,7 +41,7 @@
         // padding: $xs-gap 0;
         width: 60%;
         border-radius: 2rem;
-        animation: 1s ease-out 0s 1 slide-fade-top;
+        
     }
 
     &__text {
@@ -54,10 +58,9 @@
  
 
     &__top-artists {
-        background-color: $secondary-color-background;
         width: 50%;
         border-radius: 0rem 2rem 2rem 0rem;
-        animation: 1s ease-out 0s 1 slide-fade-top;
+        animation: 1s ease-out 0s 1 slide-fade-left;
 
     }
 

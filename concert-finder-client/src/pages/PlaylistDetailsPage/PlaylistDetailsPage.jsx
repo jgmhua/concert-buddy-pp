@@ -10,6 +10,7 @@ import {
 import { getEventsByArtists } from "../../../utils/eventsFunctions";
 import Button from "../../components/Button/Button";
 import "./PlaylistDetailsPage.scss";
+import { animated, useSpring } from 'react-spring';
 
 //TODO: create modal that opens for friends invite -- users can select/de-select certain friends too
 
@@ -59,22 +60,39 @@ export default function PlaylistDetailsPage() {
 
 	const handleMouseOut = () => {
 
-		setMouseOver(false)
+		// setMouseOver(false)
 	}
 
 	// commented out since it probably doesn't
 	// make sense for it to not show up when the mouse is gone, if the
 	// user needs to click the artists to filter!
 
+	const style = useSpring({ 
+		transform: mouseOver ? "translateX(-10px)" : "translateX(0px)",
+    config: { tension: 200, friction: 10 }
+	});
+
+	const blueBackStyle = useSpring({ 
+		transform: mouseOver ? 0  : 1,
+
+		backgroundColor: mouseOver ? 'rgba(0, 0, 255, 0.5)' : 'rgba(0, 0, 255, 0)',
+
+    config: { duration: 1000 }
+	});
+
+
 	return (
 		<article className="playlist">
 			<section className="playlist__overview">
 				{playlist ? (
 					<>
-						<Link className="playlist__url" to={playlist.uri} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOut}>
+						{/* <animated.span onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOut} style={style} > */}
+						<Link className="playlist__url" to={playlist.uri} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOut} style={style}>
 							<h1 className="playlist__text">{playlist.name}</h1>
-							<article className={`playlist__hover-block ${mouseOver===true? "playlist__hover-block--open": ""}`}>
-								<img className="playlist__cover" src={playlist.images[0].url} />
+							<animated.article style={blueBackStyle} className={`playlist__hover-block ${mouseOver===true? "playlist__hover-block--open": ""}`}>
+
+							{/* <article className='playlist__hover-block'> */}
+								<animated.img onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOut} style={style} className="playlist__cover" src={playlist.images[0].url} />
 								
 									{mouseOver === true && artistsList ? (
 										<>
@@ -92,7 +110,7 @@ export default function PlaylistDetailsPage() {
 											</section>
 										</>) : ""}
 								
-							</article>
+							</animated.article>
 
 							<p className="playlist__text playlist__text--details">
 								Total tracks: {playlist.tracks.total}
@@ -100,7 +118,7 @@ export default function PlaylistDetailsPage() {
 
 
 						</Link>
-
+						{/* </animated.span> */}
 					</>
 				) : (
 					""
