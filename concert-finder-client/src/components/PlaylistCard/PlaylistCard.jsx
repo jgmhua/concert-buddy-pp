@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import "./PlaylistCard.scss";
 
-export default function PlaylistCard( { id, name, image, tracksTotal }) {
+export default function PlaylistCard({ id, name, image, tracksTotal }) {
 
     return (
 
@@ -13,14 +13,19 @@ export default function PlaylistCard( { id, name, image, tracksTotal }) {
                         className="playlists__url"
                         to={`/playlists/${id}`}
                     >
-                        <h3 className="playlists__text">{name}</h3>
-                        <img
-                            className="playlists__cover"
-                            src={image}
-                        />
-                        {/* <p className="playlists__text playlists__text--details">
-                            Total tracks: {tracksTotal}
-                        </p> */}
+                        <div className='playlists__cover-container'>
+                            <img
+                                className="playlists__cover"
+                                src={image}
+                            />
+        
+                        </div>
+
+                        <div className="playlists__info-container">
+                            <h3 className="playlists__title">{name}</h3>
+                            <p className="playlists__tracks">Total tracks: {tracksTotal}</p>
+                        </div>
+
                     </Link>
                 </section>
             </li>

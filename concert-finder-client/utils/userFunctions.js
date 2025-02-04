@@ -50,10 +50,8 @@ async function getPlaylists(playlists, setPlaylists) {
 
 		// const filteredPlaylist= response.data.items
 
-		const filteredPlaylist = response.data.items.filter(
-			(playlist) => playlist.collaborative == true
-		);
-		setPlaylists(filteredPlaylist);
+	
+		setPlaylists(response.data.items);
 		return playlists;
 	} catch (error) {
 		console.error(
@@ -89,7 +87,7 @@ async function getSinglePlaylist(playlistId, playlist, setPlaylist) {
 		setPlaylist(response.data);
 		return playlist;
 	} catch (error) {
-		console.log(error.status)
+		console.log(error.response.data.error.status)
 		console.error(
 			"failed to get playlists",
 			error.response?.data || error.message

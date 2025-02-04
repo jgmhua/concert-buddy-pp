@@ -10,6 +10,7 @@ import {
 import { getEventsByArtists } from "../../../utils/eventsFunctions";
 import Button from "../../components/Button/Button";
 import "./PlaylistDetailsPage.scss";
+import { animated, useSpring } from 'react-spring';
 
 //TODO: create modal that opens for friends invite -- users can select/de-select certain friends too
 
@@ -64,6 +65,20 @@ export default function PlaylistDetailsPage() {
 	// commented out since it probably doesn't
 	// make sense for it to not show up when the mouse is gone, if the
 	// user needs to click the artists to filter!
+
+	const style = useSpring({
+		transform: mouseOver ? "translateX(-10px)" : "translateX(0px)",
+		config: { tension: 200, friction: 10 }
+	});
+
+	const blueBackStyle = useSpring({
+		transform: mouseOver ? 0 : 1,
+
+		backgroundColor: mouseOver ? 'rgba(0, 0, 255, 0.5)' : 'rgba(0, 0, 255, 0)',
+
+		config: { duration: 1000 }
+	});
+
 
 	return (
 		<article className="playlist">
@@ -135,8 +150,8 @@ export default function PlaylistDetailsPage() {
 										<p className="friend__name">{friend.display_name}</p>
 										<div
 											className={`friend__pic-div ${friend.images.length == 0
-													? "friend__pic-div--default"
-													: ""
+												? "friend__pic-div--default"
+												: ""
 												}`}
 										>
 											<img
@@ -175,7 +190,7 @@ export default function PlaylistDetailsPage() {
 										<img className="concert__image" src={event.images} />
 									</div>
 									<h4 className="concert__name">{event.name}</h4>
-									<div className="concert__info">
+									{/* <div className="concert__info">
 										<p className="concert__text">
 											<span className="concert__text concert__text--bold">
 												Date:{" "}
@@ -206,7 +221,7 @@ export default function PlaylistDetailsPage() {
 											handleFunc={openModal}
 											btnType="no-borders"
 										/>
-									</div>
+									</div> */}
 								</li>
 							);
 						})}

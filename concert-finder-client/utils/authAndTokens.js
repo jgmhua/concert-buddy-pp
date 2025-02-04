@@ -46,7 +46,7 @@ async function getNewAccessToken() {
 	const access_token = localStorage.getItem("AccessToken");
 	const refresh_token = localStorage.getItem("RefreshToken");
 
-	try {
+	// try {
 		const response = await axios.get(
 			`${VITE_BASE_URL}:${VITE_PORT}/refresh?refresh_token=${refresh_token}`,
 			{
@@ -58,12 +58,12 @@ async function getNewAccessToken() {
 		handleAuthSuccess(response.data.access_token, response.data.refresh_token);
 		console.log("tokens exchanged!");
 		return;
-	} catch (error) {
-		console.error(
-			"fail to get new token using refresh token:",
-			error.response?.data || error.message
-		);
-	}
+	// } catch (error) {
+	// 	console.error(
+	// 		"fail to get new token using refresh token:",
+	// 		error.response?.data || error.message
+	// 	);
+	// }
 
 	return;
 }
@@ -74,6 +74,7 @@ async function checkAccessToken(code, state) {
 	const expiry_time = localStorage.getItem("ExpiryTime");
 
 	if (!access_token || Date.now() > expiry_time) {
+		console.log("Date", Date.now(),"expiry time", expiry_time )
 		console.log("Access token expired. Refreshing...");
 		try {
 			await getNewAccessToken();

@@ -33,22 +33,29 @@
 }
 
 .user-info {
-    @extend .callback;
-    gap: $xs-gap;
+    // @extend .callback;
+    display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
 
-    &__text {
-        font-size: 1.125rem;
-        color: blueviolet;
+    // &__text {
+    //     font-size: 1.125rem;
+    //     color: blueviolet;
 
         &--bold {
             font-weight: bold;
             color: black;
         }
-    }
+    
 }
 
 .playlists {
     @extend .callback;
+    @extend .user-info;
+    background-color: $secondary-bckgd;
+    padding: $mobile-spacing 0;
     gap: $mobile-spacing;
 
     &__header {
@@ -58,9 +65,10 @@
 
     &__shared-list {
         @include flex-box(row, center, center, null, wrap);
-        width: 100%;
-        gap: $mobile-spacing;
+        width: 95%;
+        gap: 2rem;
         list-style: none;
+        padding: 1.5rem;
     }
 
     &__item {

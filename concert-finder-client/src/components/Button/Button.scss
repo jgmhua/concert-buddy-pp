@@ -2,10 +2,8 @@
 @use "../../styles/partials/_mixins.scss" as *;
 
 .btn {
-    border-radius: 0.5rem;
-    background-color: white;
-    min-width: 6.25rem;
-    padding: 0.75rem $mobile-spacing;
+    @include btn-default;
+    @include shadow;
 
     &--no-borders {
         @include flex-box(row, center, center);
