@@ -50,10 +50,8 @@ async function getPlaylists(playlists, setPlaylists) {
 
 		// const filteredPlaylist= response.data.items
 
-		const filteredPlaylist = response.data.items.filter(
-			(playlist) => playlist.collaborative == true
-		);
-		setPlaylists(filteredPlaylist);
+	
+		setPlaylists(response.data.items);
 		return playlists;
 	} catch (error) {
 		console.error(

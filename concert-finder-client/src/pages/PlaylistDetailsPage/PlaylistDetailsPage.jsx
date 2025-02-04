@@ -67,17 +67,17 @@ export default function PlaylistDetailsPage() {
 	// make sense for it to not show up when the mouse is gone, if the
 	// user needs to click the artists to filter!
 
-	const style = useSpring({ 
+	const style = useSpring({
 		transform: mouseOver ? "translateX(-10px)" : "translateX(0px)",
-    config: { tension: 200, friction: 10 }
+		config: { tension: 200, friction: 10 }
 	});
 
-	const blueBackStyle = useSpring({ 
-		transform: mouseOver ? 0  : 1,
+	const blueBackStyle = useSpring({
+		transform: mouseOver ? 0 : 1,
 
 		backgroundColor: mouseOver ? 'rgba(0, 0, 255, 0.5)' : 'rgba(0, 0, 255, 0)',
 
-    config: { duration: 1000 }
+		config: { duration: 1000 }
 	});
 
 
@@ -89,13 +89,13 @@ export default function PlaylistDetailsPage() {
 						{/* <animated.span onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOut} style={style} > */}
 						<Link className="playlist__url" to={playlist.uri} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOut} style={style}>
 							<h1 className="playlist__text">{playlist.name}</h1>
-							<animated.article style={blueBackStyle} className={`playlist__hover-block ${mouseOver===true? "playlist__hover-block--open": ""}`}>
+							<animated.article style={blueBackStyle} className={`playlist__hover-block ${mouseOver === true ? "playlist__hover-block--open" : ""}`}>
 
-							{/* <article className='playlist__hover-block'> */}
+								{/* <article className='playlist__hover-block'> */}
 								<animated.img onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOut} style={style} className="playlist__cover" src={playlist.images[0].url} />
-								
-									{mouseOver === true && artistsList ? (
-										<>
+
+								{mouseOver === true && artistsList ? (
+									<>
 										<section className="playlist__top-artists">
 											<h3>Top Artists in Playlist</h3>
 											<ul>
@@ -107,9 +107,9 @@ export default function PlaylistDetailsPage() {
 													);
 												})}
 											</ul>
-											</section>
-										</>) : ""}
-								
+										</section>
+									</>) : ""}
+
 							</animated.article>
 
 							<p className="playlist__text playlist__text--details">
@@ -135,8 +135,8 @@ export default function PlaylistDetailsPage() {
 										<p className="friend__name">{friend.display_name}</p>
 										<div
 											className={`friend__pic-div ${friend.images.length == 0
-													? "friend__pic-div--default"
-													: ""
+												? "friend__pic-div--default"
+												: ""
 												}`}
 										>
 											<img
@@ -175,7 +175,7 @@ export default function PlaylistDetailsPage() {
 										<img className="concert__image" src={event.images} />
 									</div>
 									<h4 className="concert__name">{event.name}</h4>
-									<div className="concert__info">
+									{/* <div className="concert__info">
 										<p className="concert__text">
 											<span className="concert__text concert__text--bold">
 												Date:{" "}
@@ -206,7 +206,7 @@ export default function PlaylistDetailsPage() {
 											handleFunc={openModal}
 											btnType="no-borders"
 										/>
-									</div>
+									</div> */}
 								</li>
 							);
 						})}
