@@ -66,20 +66,6 @@ export default function PlaylistDetailsPage() {
 	// make sense for it to not show up when the mouse is gone, if the
 	// user needs to click the artists to filter!
 
-	const style = useSpring({
-		transform: mouseOver ? "translateX(-10px)" : "translateX(0px)",
-		config: { tension: 200, friction: 10 }
-	});
-
-	const blueBackStyle = useSpring({
-		transform: mouseOver ? 0 : 1,
-
-		backgroundColor: mouseOver ? 'rgba(0, 0, 255, 0.5)' : 'rgba(0, 0, 255, 0)',
-
-		config: { duration: 1000 }
-	});
-
-
 	return (
 		<article className="playlist">
 			<section className="playlist__overview">
