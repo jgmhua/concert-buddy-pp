@@ -1,4 +1,4 @@
-# Find Concert App
+# Concert Buddy
 Paired programming project by Jenani and Jess
 
 ## Purpose 
