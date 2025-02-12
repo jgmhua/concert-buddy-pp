@@ -10,8 +10,6 @@ import {
 import { getEventsByArtists } from "../../../utils/eventsFunctions";
 import Button from "../../components/Button/Button";
 import "./PlaylistDetailsPage.scss";
-import { animated, useSpring } from 'react-spring';
-
 //TODO: create modal that opens for friends invite -- users can select/de-select certain friends too
 
 export default function PlaylistDetailsPage() {

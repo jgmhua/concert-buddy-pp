@@ -24,6 +24,7 @@ import PlaylistCard from "../../components/PlaylistCard/PlaylistCard";
 export default function CallbackPage() {
 	const [profileData, setProfileData] = useState(null);
 	const [playlists, setPlaylists] = useState(null);
+	const [grabAccessToken, setGrabAccessToken] = useState(false);
 	const [searchParams] = useSearchParams();
 
 	useEffect(() => {
@@ -31,6 +32,7 @@ export default function CallbackPage() {
 		const state = searchParams.get("state");
 		if (code) {
 			exchangeCodeForToken(code, state);
+			setGrabAccessToken(true);
 		}
 
 		//once exchange for token occurs, grab user info to display (replaced button)
@@ -39,9 +41,17 @@ export default function CallbackPage() {
 				console.log("Access token expired. Refreshing...");
 				getNewAccessToken();
 			}
-			getUserProfile(profileData, setProfileData);
 		}
 	}, []);
+
+	useEffect(() => {
+		if (localStorage.getItem("AccessToken") && grabAccessToken) {
+			getUserProfile(profileData, setProfileData);
+			console.log("grabbed pofile?")
+		} else {
+			console.log("did not grab")
+		}
+	}, [grabAccessToken]);
 
 	return (
 		<article className="callback">

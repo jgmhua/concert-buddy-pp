@@ -5,6 +5,7 @@ const { VITE_BASE_URL, VITE_PORT } = import.meta.env;
 
 async function getUserProfile(profileData, setProfileData) {
 	const access_token = localStorage.getItem("AccessToken");
+	console.log(access_token);
 	if (!access_token) {
 		console.error("Access token not found");
 		return;

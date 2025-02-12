@@ -19,6 +19,7 @@
         background-color: $primary-neutral;
         background-color: $primary-bckgd;
         list-style: none;
+        transition: 0.5s;
 
         &:hover {
             transform: translateY(-2%);
