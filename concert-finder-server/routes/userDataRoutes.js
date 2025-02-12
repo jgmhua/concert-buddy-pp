@@ -15,7 +15,7 @@ router.get("/profile", async (req, res) => {
 	if (!authHeader || !authHeader.startsWith("Bearer ")) {
 		return res
 			.status(401)
-			.json({ error: "Missing or invalid Authorization header" });
+			.send({ error: "Missing or invalid Authorization header" });
 	}
 
 	try {
@@ -38,13 +38,13 @@ router.post("/profiles", async (req, res) => {
 	if (!authHeader || !authHeader.startsWith("Bearer ")) {
 		return res
 			.status(401)
-			.json({ error: "Missing or invalid Authorization header" });
+			.send({ error: "Missing or invalid Authorization header" });
 	}
 
 	if (!req.body) {
 		return res
 			.status(401)
-			.json({ error: "Missing or invalid list of buddies" });
+			.send({ error: "Missing or invalid list of buddies" });
 	}
 
 	let listInfo = [];
@@ -73,7 +73,7 @@ router.get("/playlists", async (req, res) => {
 	if (!authHeader || !authHeader.startsWith("Bearer ")) {
 		return res
 			.status(401)
-			.json({ error: "Missing or invalid Authorization header" });
+			.send({ error: "Missing or invalid Authorization header" });
 	}
 
 	try {
@@ -85,10 +85,12 @@ router.get("/playlists", async (req, res) => {
 				},
 			}
 		);
+		// console.log("error msg", userPlaylists.data.error.status)
 		return res.send(userPlaylists.data);
 	} catch (error) {
-		console.error("Error fetching user's playlists", error.response);
-		return res.status(500).send(error.response);
+	
+		console.error("Error fetching user's playlists", error.response.data);
+		return res.status(500).send(error.response.data);
 	}
 });
 
@@ -100,7 +102,7 @@ router.get("/playlists/:playlist_id", async (req, res) => {
 	if (!authHeader || !authHeader.startsWith("Bearer ")) {
 		return res
 			.status(401)
-			.json({ error: "Missing or invalid Authorization header" });
+			.send({ error: "Missing or invalid Authorization header" });
 	}
 
 	try {
@@ -114,8 +116,9 @@ router.get("/playlists/:playlist_id", async (req, res) => {
 		);
 		return res.send(playlistDetails.data);
 	} catch (error) {
-		console.error("Error fetching playlist details", error.response);
-		return res.status(500).json(error.response);
+		console.error(error.response.status)
+		console.error("Error fetching playlist details", error.response.data);
+		return res.status(500).send(error.response.data);
 	}
 });
 

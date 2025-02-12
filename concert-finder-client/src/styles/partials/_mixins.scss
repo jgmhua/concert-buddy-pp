@@ -30,8 +30,25 @@
 }
 
 /* Styles? */
-@mixin basic-rounded-border {
-    border: .125rem solid lightgray;
-    border-radius: 1.25rem;
+//rounded borders
+@mixin basic-rounded-border($border-thickness: 0,$border-colour: lightgray) {
+    border: $border-thickness solid $border-colour;
+    border-radius: $border-radius-l;
     padding: $mobile-spacing;
+}
+
+//box-shadow
+@mixin shadow {
+    box-shadow: 0.25rem 0.25rem .625rem rgba(0, 0, 0, 0.3);
+}
+
+//buttons
+@mixin btn-default($colour: $primary-neutral, $border-thickness: $border-radius-xs, $text-colour: $primary-accent) {
+    border: $border-width-reg solid $colour;
+    background-color: $colour;
+    border-radius: $border-thickness;
+    color: $text-colour;
+    font-weight: bold;
+    min-width: 6.25rem;
+    padding: 0.75rem $mobile-spacing;
 }

@@ -1,0 +1,88 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_keyframes.scss" as *;
+
+
+.playlists {
+
+    &__item {
+        @include flex-box(row, center, center);
+        @include shadow;
+        @include basic-rounded-border;
+        width: 97%;
+        aspect-ratio: 1;
+        padding: 0;
+        // border-width: 0.5rem;
+        border-width: 0;
+        // border-color: $primary-neutral;
+        // border-color: $primary-bckgd;
+        background-color: $primary-neutral;
+        background-color: $primary-bckgd;
+        list-style: none;
+        transition: 0.5s;
+
+        &:hover {
+            transform: translateY(-2%);
+        }
+    }
+
+    &__playlist {
+        @include flex-box(row, center, center);
+        width: 100%;
+        aspect-ratio: 1;
+    }
+
+    &__url {
+        @include flex-box(column, center);
+        width: 100%;
+        aspect-ratio: 0.95;
+        border-radius: 1.25rem;
+        overflow: hidden;
+    }
+
+    &__cover-container {
+        @include basic-rounded-border;
+        padding: 0;
+        border-width: 0;
+        // border-width: .5rem;
+        // border-color: $primary-accent;
+        // border-color: $primary-bckgd;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        aspect-ratio: 1;
+        overflow: hidden;
+    }
+
+    &__cover {
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    &__info-container {
+        @include flex-box(column, center, center);
+        --h: 10vh;
+        @include basic-rounded-border;
+        width: 100%;
+        min-height: 30%;
+        padding: $mobile-spacing;
+        gap: $xs-gap;
+        border-width: 0;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        // border-color: $primary-bckgd;
+        background-color: $primary-neutral;
+    }
+
+    &__title {
+        color: $secondary-bckgd;
+        font-weight: 800;
+        font-size:calc((var(--h) / 3));
+        line-height: 1.5rem;
+    }
+
+    &__tracks {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $primary-accent;
+    }
+}

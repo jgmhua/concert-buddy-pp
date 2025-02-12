@@ -5,6 +5,7 @@ const { VITE_BASE_URL, VITE_PORT } = import.meta.env;
 
 async function getUserProfile(profileData, setProfileData) {
 	const access_token = localStorage.getItem("AccessToken");
+	console.log(access_token);
 	if (!access_token) {
 		console.error("Access token not found");
 		return;
@@ -48,10 +49,10 @@ async function getPlaylists(playlists, setPlaylists) {
 			}
 		);
 
-		const filteredPlaylist = response.data.items.filter(
-			(playlist) => playlist.collaborative == true
-		);
-		setPlaylists(filteredPlaylist);
+		// const filteredPlaylist= response.data.items
+
+	
+		setPlaylists(response.data.items);
 		return playlists;
 	} catch (error) {
 		console.error(
@@ -61,7 +62,8 @@ async function getPlaylists(playlists, setPlaylists) {
 
 		if (
 			error.response.data.error === "invalid_grant" ||
-			error.response.data.error_description === "Authorization code expired"
+			error.response.data.error_description === "Authorization code expired" ||
+			error.response.data.status === 401
 		) {
 			getNewAccessToken();
 		}
@@ -86,6 +88,7 @@ async function getSinglePlaylist(playlistId, playlist, setPlaylist) {
 		setPlaylist(response.data);
 		return playlist;
 	} catch (error) {
+		console.log(error.response.data.error.status)
 		console.error(
 			"failed to get playlists",
 			error.response?.data || error.message
@@ -93,7 +96,8 @@ async function getSinglePlaylist(playlistId, playlist, setPlaylist) {
 
 		if (
 			error.response.data.error === "invalid_grant" ||
-			error.response.data.error_description === "Authorization code expired"
+			error.response.data.error_description === "Authorization code expired" ||
+			error.response.data.error_description === "The access token expired"
 		) {
 			getNewAccessToken();
 		}
@@ -144,7 +148,7 @@ async function getPlaylistDetails(
 		}
 
 		const sortedList = sortByFrequency(filteredArtists);
-		setArtistsLists(sortedList.slice(0, 10));
+		setArtistsLists(sortedList.slice(0, 5));
 
 		const setOfUsersList = new Set(usersList);
 		setPlaylistUsers(setOfUsersList);

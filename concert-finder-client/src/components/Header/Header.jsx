@@ -7,9 +7,9 @@ export default function Header() {
 			<nav className="nav-bar">
 				<NavLink to="/"> Home </NavLink>
 			</nav>
-			<section className="user-info">
-				<div className="user-info__pic">User pic?</div>
-				<p className="user-info__name">User Info?</p>
+			<section className="header__user-section">
+				<div className="header__user">User pic?</div>
+				<p className="header__email">User Info?</p>
 			</section>
 		</header>
 	);

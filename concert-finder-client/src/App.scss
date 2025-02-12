@@ -1,5 +1,7 @@
 @use "./styles/partials/_variables.scss" as *;
 @use "./styles/partials/_mixins.scss" as *;
+@use "./styles/partials/_typography.scss" as *;
+
 
 * {
 	padding: 0;
@@ -12,16 +14,16 @@
 	width: 100%;
 	min-height: 100vh;
 	gap: $mobile-spacing;
-	padding: $mobile-spacing;
+	// padding: $mobile-spacing;
 	
 	@include tablet {
 		gap: $tablet-spacing;
-		padding: $tablet-spacing;
+		// padding: $tablet-spacing;
 	}
 
 	@include desktop {
 		gap: $desktop-spacing;
-		padding: $desktop-spacing;
+		// padding: $desktop-spacing;
 	}
 
 	&__header-container {
@@ -38,6 +40,7 @@ body {
     font-size: 0.75rem;
     font-weight: 400;
 	line-height: 1rem;
+	background-color: $primary-bckgd;
 }
 
 ul,ol,li {

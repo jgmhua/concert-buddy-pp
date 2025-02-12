@@ -21,30 +21,15 @@
         }
     }
 
-    &__url {
-        animation: margin 0.3s ease; 
-    }
-
     &__hover-block {
         display: flex;
         justify-content: center;
         animation: 1s ease-out 0s 1 slide-fade-top;
-        transform-style: preserve-3d;
-        transform: rotateY(var(--rotate-y, 0));
-        cursor: pointer;
-        transition: 0.3s;
+        
 
-        @include tablet {
-            transform: none;
-        }
         &--open {
-            // background-color: $secondary-color-background;
+            background-color: $secondary-color-background;
             border-radius: 2rem;
-            --rotate-y: 180deg;
-
-            @include tablet {
-                --rotate-y: 0deg;
-            }
         }
     }
 
@@ -53,17 +38,6 @@
         width: 60%;
         border-radius: 2rem;
         animation: 1s ease-out 0s 1 slide-fade-top;
-        // position: absolute;
-        // padding: 1rem;
-        backface-visibility: hidden;
-
-        &--slide {
-
-            @include tablet {
-
-                transform: translateX(-40%);
-            }
-        }
     }
 
     &__text {
@@ -77,29 +51,13 @@
         }
     }
 
-
+ 
 
     &__top-artists {
-        background-color: $secondary-bckgd;
-        width: 60%;
-        height: 100%;
-        border-radius: 2rem;
+        background-color: $secondary-color-background;
+        width: 50%;
+        border-radius: 0rem 2rem 2rem 0rem;
         animation: 1s ease-out 0s 1 slide-fade-top;
-        position: absolute;
-        z-index: -1;
-        padding: 1rem;
-        backface-visibility: hidden;
-        transform: rotateY(180deg);
-
-        @include tablet {
-            transform: rotateY(0deg);
-        }
-
-        &--slide {
-            @include tablet {
-                transform: translateX(40%);
-            }
-        }
 
     }
 
@@ -184,28 +142,25 @@
 
 .concert {
     @include basic-rounded-border;
-    background-color: $primary-accent;
-    @include flex-box(row, space-around, center, center);
-    width: 100%;
-    // min-width: 10rem;
-    // min-height: 25rem;
-    // max-height: 25rem;
+    @include flex-box(column, space-around, center, center);
+    width: 30%;
+    min-width: 10rem;
+    min-height: 25rem;
+    max-height: 25rem;
     gap: $xs-gap;
     padding: $mobile-spacing 1.5rem;
     text-align: center;
 
     &__image-div {
         border-radius: 1rem;
-        // max-height: 9rem;
+        max-height: 9rem;
         overflow: hidden;
     }
 
     &__image {
-        @include basic-rounded-border;
-        width: 100px;
-        height: 100px;
+        width: 100%;
         // flex-grow: 1;
-        object-fit: contain;
+        // object-fit: fill;
     }
 
     &__info {

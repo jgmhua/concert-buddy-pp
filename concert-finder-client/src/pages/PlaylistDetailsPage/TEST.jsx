@@ -10,6 +10,7 @@ import {
 import { getEventsByArtists } from "../../../utils/eventsFunctions";
 import Button from "../../components/Button/Button";
 import "./PlaylistDetailsPage.scss";
+
 //TODO: create modal that opens for friends invite -- users can select/de-select certain friends too
 
 export default function PlaylistDetailsPage() {
@@ -19,10 +20,9 @@ export default function PlaylistDetailsPage() {
 	const [friendsInfo, setFriendsInfo] = useState(null);
 	const [artistsList, setArtistsLists] = useState(null);
 	const [eventsList, setEventsLists] = useState(null);
-	const [flip, setFlip] = useState(false);
-	const [slide, setSlide] = useState(false);
 
 	// state for hover over playlist
+	const [mouseOver, setMouseOver] = useState(false)
 
 	function findConcerts() {
 		getEventsByArtists(artistsList, eventsList, setEventsLists);
@@ -51,14 +51,16 @@ export default function PlaylistDetailsPage() {
 		}
 	}, [playlistUsers]);
 
+	// TODO: Mouse-enter effect isn't very smooth, figure out how to make it look nicer
 
-	const handleRotate = () => {
-		setFlip(!flip);
-		setSlide(!slide);
+	const handleMouseOver = () => {
+		setMouseOver(true)
 	}
 
+	const handleMouseOut = () => {
 
-
+		setMouseOver(false)
+	}
 
 	// commented out since it probably doesn't
 	// make sense for it to not show up when the mouse is gone, if the
@@ -69,20 +71,14 @@ export default function PlaylistDetailsPage() {
 			<section className="playlist__overview">
 				{playlist ? (
 					<>
-						<Link className="playlist__url" to={playlist.uri} >
+						<Link className="playlist__url" to={playlist.uri} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOut}>
 							<h1 className="playlist__text">{playlist.name}</h1>
-							<article className={`playlist__hover-block ${flip? "playlist__hover-block--open": ""}`}>
-
-								{/* front */}
-								<img className={`playlist__cover ${slide? "playlist__cover--slide" : ""}`} src={playlist.images[0].url} />
-
-
+							<article className={`playlist__hover-block ${mouseOver===true? "playlist__hover-block--open": ""}`}>
+								<img className="playlist__cover" src={playlist.images[0].url} />
 								
-									{artistsList ? (
+									{mouseOver === true && artistsList ? (
 										<>
-
-										{/* backside */}
-										<section className={`playlist__top-artists ${slide? "playlist__top-artists--slide" : ""}`}>
+										<section className="playlist__top-artists">
 											<h3>Top Artists in Playlist</h3>
 											<ul>
 												{artistsList.map((artist) => {
@@ -96,7 +92,7 @@ export default function PlaylistDetailsPage() {
 											</section>
 										</>) : ""}
 								
-										</article>
+							</article>
 
 							<p className="playlist__text playlist__text--details">
 								Total tracks: {playlist.tracks.total}
@@ -104,25 +100,12 @@ export default function PlaylistDetailsPage() {
 
 
 						</Link>
-						
+
 					</>
 				) : (
 					""
 				)}
 			</section>
-			
-			<svg onClick={handleRotate} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="m360-160-56-56 70-72q-128-17-211-70T80-480q0-83 115.5-141.5T480-680q169 0 284.5 58.5T880-480q0 62-66.5 111T640-296v-82q77-20 118.5-49.5T800-480q0-32-85.5-76T480-600q-149 0-234.5 44T160-480q0 24 51 57.5T356-372l-52-52 56-56 160 160-160 160Z"/></svg>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			{friendsInfo ? (
 				<section className="friends">
 					<h3 className="friends__header">Buddies in Playlist*</h3>
@@ -134,8 +117,8 @@ export default function PlaylistDetailsPage() {
 										<p className="friend__name">{friend.display_name}</p>
 										<div
 											className={`friend__pic-div ${friend.images.length == 0
-												? "friend__pic-div--default"
-												: ""
+													? "friend__pic-div--default"
+													: ""
 												}`}
 										>
 											<img
@@ -174,7 +157,7 @@ export default function PlaylistDetailsPage() {
 										<img className="concert__image" src={event.images} />
 									</div>
 									<h4 className="concert__name">{event.name}</h4>
-									{/* <div className="concert__info">
+									<div className="concert__info">
 										<p className="concert__text">
 											<span className="concert__text concert__text--bold">
 												Date:{" "}
@@ -205,7 +188,7 @@ export default function PlaylistDetailsPage() {
 											handleFunc={openModal}
 											btnType="no-borders"
 										/>
-									</div> */}
+									</div>
 								</li>
 							);
 						})}

@@ -1,5 +1,6 @@
 @use "../../styles/partials/_variables.scss" as *;
 @use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_typography.scss" as *;
 
 //TODO: figure out typography standards later? 
 
@@ -12,14 +13,13 @@
         @extend .login;
     }
 
-    &__header {
-        font-size: x-large;
-        font-weight: 700;
-        color: blueviolet;
-    }
+    // &__header {
+    //     font-size: x-large;
+    //     font-weight: 700;
+    // }
 
-    &__subheader {
-        font-size: medium;
-        font-weight: 600;
-    }
+    // &__subheader {
+    //     font-size: medium;
+    //     font-weight: 600;
+    // }
 }
