@@ -16,7 +16,7 @@ router.post("/playlist", async (req, res) => {
     //Note: MUST search by single artist using Ticketmaster API!
 	
 	for (let i = 0; i < artistsList.length; i++) {
-		delay(1000).then();
+		delay(3000).then();
 		let artist = artistsList[i];
 		let response = await axios.get(
 			`https://app.ticketmaster.com/discovery/v2/events.json?keyword=${artist}&city=Toronto&country=Canada&sort=relevance,desc&apikey=${TICKETMASTER_API_KEY}`

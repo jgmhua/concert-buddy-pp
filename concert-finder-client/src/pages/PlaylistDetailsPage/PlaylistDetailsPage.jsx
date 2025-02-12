@@ -21,6 +21,7 @@ export default function PlaylistDetailsPage() {
 	const [eventsList, setEventsLists] = useState(null);
 	const [flip, setFlip] = useState(false);
 	const [slide, setSlide] = useState(false);
+	const [showConcertDetails, setShowConcertDetails] = useState(null);
 
 	// state for hover over playlist
 
@@ -55,7 +56,18 @@ export default function PlaylistDetailsPage() {
 	const handleRotate = () => {
 		setFlip(!flip);
 		setSlide(!slide);
-	}
+	};
+
+	const handleEventClick = (eventId) => {
+		if (showConcertDetails === eventId) {
+			setShowConcertDetails(null);
+			return;
+		} else {
+			setShowConcertDetails(eventId)
+			return;
+		}
+		
+	};
 
 
 
@@ -169,44 +181,55 @@ export default function PlaylistDetailsPage() {
 					<ul className="concerts__list">
 						{eventsList.map((event) => {
 							return (
-								<li key={event.id} className="concert">
+								<>
+								<li key={event.id} className="concert" onClick={() => handleEventClick(event.id)}>
 									<div className="concert__image-div">
 										<img className="concert__image" src={event.images} />
 									</div>
 									<h4 className="concert__name">{event.name}</h4>
-									{/* <div className="concert__info">
-										<p className="concert__text">
-											<span className="concert__text concert__text--bold">
-												Date:{" "}
-											</span>
-											{event.dates.start.localDate}
-										</p>
-										<p className="concert__text">
-											<span className="concert__text concert__text--bold">
-												Location:{" "}
-											</span>
-											{event.venues.venues[0].city.name}
-										</p>
-										<p className="concert__text">
-											<span className="concert__text concert__text--bold">
-												Venue:{" "}
-											</span>
-											{event.venues.venues[0].name}
-										</p>
-									</div>
-									<div className="concert__btns">
-										<Button
-											text="📧"
-											handleFunc={openModal}
-											btnType="no-borders"
-										/>
-										<Button
-											text="↗"
-											handleFunc={openModal}
-											btnType="no-borders"
-										/>
-									</div> */}
+									
 								</li>
+							
+									{ showConcertDetails === event.id?  
+									<div className="concert__popup">
+										<div className="concert__info">
+											<p className="concert__text">
+												<span className="concert__text concert__text--bold">
+													Date:{" "}
+												</span>
+												{event.dates.start.localDate}
+											</p>
+											<p className="concert__text">
+												<span className="concert__text concert__text--bold">
+													Location:{" "}
+												</span>
+												{event.venues.venues[0].city.name}
+											</p>
+											<p className="concert__text">
+												<span className="concert__text concert__text--bold">
+													Venue:{" "}
+												</span>
+												{event.venues.venues[0].name}
+											</p>
+										</div>
+
+										<div className="concert__btns">
+											<Button
+												text="📧"
+												handleFunc={openModal}
+												btnType="no-borders"
+											/>
+											<Button
+												text="↗"
+												handleFunc={openModal}
+												btnType="no-borders"
+											/>
+										</div>
+									</div>
+									: ""
+
+									}
+								</>
 							);
 						})}
 					</ul>
