@@ -32,28 +32,23 @@
     }
 }
 
-.user-info {
-    // @extend .callback;
-    display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-
-    // &__text {
-    //     font-size: 1.125rem;
-    //     color: blueviolet;
-
-        &--bold {
-            font-weight: bold;
-            color: black;
-        }
+.user {
+    @include flex-box(column, flex-start, center);
+    gap: $s-gap;
     
+    &--name {
+        gap: 0;
+    }
+
+    &__text, &--email {
+        font-weight: 500;
+        font-style: italic;
+    }
 }
 
 .playlists {
     @extend .callback;
-    @extend .user-info;
+    @extend .user;
     background-color: $secondary-bckgd;
     padding: $mobile-spacing 0;
     gap: $mobile-spacing;

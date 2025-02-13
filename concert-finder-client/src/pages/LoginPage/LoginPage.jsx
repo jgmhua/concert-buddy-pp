@@ -1,13 +1,13 @@
 import "./LoginPage.scss";
-import { useState } from "react";
 import Button from "../../components/Button/Button.jsx";
 import axios from "axios";
 
 //TODO: Change harded coded urls into .env variables
+const { VITE_PORT, VITE_BASE_URL } = import.meta.env;
 
 export default function LoginPage() {
 	async function redirectLink() {
-		const response = await axios.get("http://localhost:8080/login/url");
+		const response = await axios.get(`${VITE_BASE_URL}:${VITE_PORT}/login/url`);
 		window.location.href = response.data.url;
 	}
 

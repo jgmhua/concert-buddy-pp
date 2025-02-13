@@ -13,13 +13,13 @@
         @extend .login;
     }
 
-    // &__header {
-    //     font-size: x-large;
-    //     font-weight: 700;
-    // }
-
-    // &__subheader {
-    //     font-size: medium;
-    //     font-weight: 600;
-    // }
+    &__header {
+        text-align: center;
+        padding-bottom: $mobile-spacing;
+    }
+    
+    &__subheader {
+        text-align: center;
+        padding-bottom: 0.75rem;
+    }
 }
