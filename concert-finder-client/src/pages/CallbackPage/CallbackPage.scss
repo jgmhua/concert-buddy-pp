@@ -6,8 +6,8 @@
     @include flex-box(column, center, center);
     width: 100%;
     gap: $mobile-spacing;
+    padding-top: 2rem;
     animation: 0.75s ease-out 0s 1 slide-fade-top;
-
 
     @include tablet {
         gap: $tablet-spacing;

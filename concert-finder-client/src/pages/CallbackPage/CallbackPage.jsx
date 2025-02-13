@@ -34,7 +34,6 @@ export default function CallbackPage() {
 			setGrabAccessToken(true);
 		}
 
-		//once exchange for token occurs, grab user info to display (replaced button)
 		if (localStorage.getItem("AccessToken")) {
 			if (Date.now() > localStorage.getItem("ExpiryTime")) {
 				console.log("Access token expired. Refreshing...");
