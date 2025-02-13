@@ -78,9 +78,9 @@ export default function CallbackPage() {
 			{playlists ? (
 				<section className="playlists">
 					<h2 className="playlists__header">
-						Shared Playlists {playlists.total}
+						My Shared Playlists {playlists.total}
 					</h2>
-					<ul className="playlists__shared-list">
+					<ul className="playlists__list">
 						{playlists.map((playlist) => {
 							return (
 								<PlaylistCard

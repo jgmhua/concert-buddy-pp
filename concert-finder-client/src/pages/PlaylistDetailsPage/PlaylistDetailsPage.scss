@@ -3,24 +3,21 @@
 @use "../../styles/partials/_keyframes.scss" as *;
 
 .playlist {
-    width: 100%;
     @include flex-box(column, center, center);
-    gap: 1rem;
-
+    width: 100%;
+    gap: $s-gap;
+    
     &__overview {
+        @include flex-box(row, center, center);
         width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         gap: 3rem;
-        // @include flex-box(row, space-betweeen, center);
-
 
         &:hover {
             cursor: pointer;
         }
     }
 
+    //FIXME: IS THIS NEEDED? do I have to change/include &__item?
     &__url {
         animation: margin 0.3s ease;
     }
@@ -31,15 +28,14 @@
         animation: 1s ease-out 0s 1 slide-fade-top;
         transform-style: preserve-3d;
         transform: rotateY(var(--rotate-y, 0));
-        cursor: pointer;
         transition: 0.3s;
+        cursor: pointer;
 
         @include tablet {
             transform: none;
         }
 
         &--open {
-            // background-color: $secondary-color-background;
             border-radius: 2rem;
             --rotate-y: 180deg;
 
@@ -50,18 +46,14 @@
     }
 
     &__cover {
-        // padding: $xs-gap 0;
         width: 60%;
         border-radius: 2rem;
         animation: 1s ease-out 0s 1 slide-fade-top;
-        // position: absolute;
-        // padding: 1rem;
         backface-visibility: hidden;
 
         &--slide {
 
             @include tablet {
-
                 transform: translateX(-40%);
             }
         }
@@ -69,16 +61,12 @@
 
     &__text {
         font-size: 1.125rem;
-        color: blueviolet;
 
         &--details {
             font-size: 1rem;
             font-weight: bold;
-            color: black;
         }
     }
-
-
 
     &__top-artists {
         background-color: $secondary-bckgd;
@@ -101,7 +89,6 @@
                 transform: translateX(40%);
             }
         }
-
     }
 
     &__url {
@@ -138,7 +125,7 @@
     &__name {
         font-size: 1rem;
         font-weight: bold;
-        color: black;
+        // color: black;
     }
 
     &__pic-div {

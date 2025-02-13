@@ -6,19 +6,13 @@
 .playlists {
 
     &__item {
-        @include flex-box(row, center, center);
+        @include flex-box(column, space-between, center);
+        @include basic-rounded-border(0, 3rem);
         @include shadow;
-        @include basic-rounded-border;
-        width: 97%;
-        aspect-ratio: 1;
+        width: 95%;
         padding: 0;
-        // border-width: 0.5rem;
-        border-width: 0;
-        // border-color: $primary-neutral;
-        // border-color: $primary-bckgd;
-        background-color: $primary-neutral;
-        background-color: $primary-bckgd;
-        list-style: none;
+        aspect-ratio: 0.95;
+        overflow: hidden;
         transition: 0.5s;
 
         &:hover {
@@ -26,58 +20,45 @@
         }
     }
 
-    &__playlist {
-        @include flex-box(row, center, center);
-        width: 100%;
-        aspect-ratio: 1;
-    }
+    // &__playlist {
+    //     @include flex-box(row, center, center);
+    //     width: 100%;
+    //     aspect-ratio: 1;
+    // }
 
-    &__url {
-        @include flex-box(column, center);
-        width: 100%;
-        aspect-ratio: 0.95;
-        border-radius: 1.25rem;
-        overflow: hidden;
-    }
-
-    &__cover-container {
+    &__cover-div {
         @include basic-rounded-border;
+        width: 100%;
         padding: 0;
-        border-width: 0;
-        // border-width: .5rem;
-        // border-color: $primary-accent;
-        // border-color: $primary-bckgd;
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
-        aspect-ratio: 1;
         overflow: hidden;
     }
 
     &__cover {
         width: 100%;
-        flex-grow: 1;
     }
 
-    &__info-container {
+    &__info-div {
         @include flex-box(column, center, center);
-        --h: 10vh;
         @include basic-rounded-border;
+        --h: 10vh;
         width: 100%;
-        min-height: 30%;
-        padding: $mobile-spacing;
+        // min-height: 30%;
+        min-height: 27%;
+        padding: $mobile-spacing 1.5rem;
         gap: $xs-gap;
         border-width: 0;
         border-top-right-radius: 0;
         border-top-left-radius: 0;
-        // border-color: $primary-bckgd;
         background-color: $primary-neutral;
     }
 
     &__title {
         color: $secondary-bckgd;
         font-weight: 800;
-        font-size:calc((var(--h) / 3));
-        line-height: 1.5rem;
+        font-size: calc((var(--h) / 4));
+        // line-height: 1.5rem;
     }
 
     &__tracks {

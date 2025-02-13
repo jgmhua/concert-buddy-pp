@@ -54,25 +54,15 @@
     gap: $mobile-spacing;
 
     &__header {
+        padding-top: 1.5rem;
         font-size: 1.5rem;
         font-weight: bold;
     }
 
-    &__shared-list {
+    &__list {
         @include flex-box(row, center, center, null, wrap);
-        width: 95%;
-        gap: 2rem;
-        list-style: none;
-        padding: 1.5rem;
-    }
-
-    &__item {
         width: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        gap: $mobile-spacing;
-        list-style: none;
+        gap: 2rem;
+        padding: $mobile-spacing;
     }
-
 }

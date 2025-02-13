@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { checkAccessToken } from "../../../utils/authAndTokens";
 import {
-	getPlaylists,
 	getSinglePlaylist,
 	getPlaylistDetails,
 	getBuddiesProfiles,
@@ -10,7 +9,6 @@ import {
 import { getEventsByArtists } from "../../../utils/eventsFunctions";
 import Button from "../../components/Button/Button";
 import "./PlaylistDetailsPage.scss";
-//TODO: create modal that opens for friends invite -- users can select/de-select certain friends too
 
 export default function PlaylistDetailsPage() {
 	const { playlistId } = useParams();
@@ -22,13 +20,12 @@ export default function PlaylistDetailsPage() {
 	const [flip, setFlip] = useState(false);
 	const [slide, setSlide] = useState(false);
 	const [showConcertDetails, setShowConcertDetails] = useState(null);
-
-	// state for hover over playlist
-
+	
 	function findConcerts() {
 		getEventsByArtists(artistsList, eventsList, setEventsLists);
 	}
-
+	
+	//TODO: create modal that opens for friends invite -- users can select/de-select certain friends too
 	function openModal() {
 		console.log("I also do nothing at the moment!");
 	}
@@ -66,10 +63,6 @@ export default function PlaylistDetailsPage() {
 			return;
 		}
 	};
-
-	// commented out since it probably doesn't
-	// make sense for it to not show up when the mouse is gone, if the
-	// user needs to click the artists to filter!
 
 	return (
 		<article className="playlist">
@@ -125,7 +118,6 @@ export default function PlaylistDetailsPage() {
 					""
 				)}
 			</section>
-
 			<svg
 				onClick={handleRotate}
 				xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +128,6 @@ export default function PlaylistDetailsPage() {
 			>
 				<path d="m360-160-56-56 70-72q-128-17-211-70T80-480q0-83 115.5-141.5T480-680q169 0 284.5 58.5T880-480q0 62-66.5 111T640-296v-82q77-20 118.5-49.5T800-480q0-32-85.5-76T480-600q-149 0-234.5 44T160-480q0 24 51 57.5T356-372l-52-52 56-56 160 160-160 160Z" />
 			</svg>
-
 			{friendsInfo ? (
 				<section className="friends">
 					<h3 className="friends__header">Buddies in Playlist*</h3>
