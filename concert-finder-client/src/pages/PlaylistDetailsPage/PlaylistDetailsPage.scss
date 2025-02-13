@@ -22,7 +22,7 @@
     }
 
     &__url {
-        animation: margin 0.3s ease; 
+        animation: margin 0.3s ease;
     }
 
     &__hover-block {
@@ -37,6 +37,7 @@
         @include tablet {
             transform: none;
         }
+
         &--open {
             // background-color: $secondary-color-background;
             border-radius: 2rem;
@@ -184,51 +185,66 @@
 }
 
 .concert {
+    @include flex-box(column, center, center);
     @include basic-rounded-border;
     @include shadow;
-    padding: $xs-gap;
-    background-color:$primary-neutral;
-    @include flex-box(row, start, center, center);
     width: 100%;
-    // min-width: 10rem;
-    // min-height: 25rem;
-    // max-height: 25rem;
-    gap: $s-gap;
-    // padding: $mobile-spacing 1.5rem;
-    text-align: center;
+    padding: $xs-gap;
+    background-color: $primary-neutral;
 
+    &__main {
+        @include flex-box(row, flex-start, center, center);
+        width: 100%;
+        gap: $s-gap;
+    }
+    
     &__image-div {
         border-radius: 50%;
-        // max-height: 9rem;
         overflow: hidden;
     }
-
+    
     &__image {
         @include basic-rounded-border;
         padding: 0rem;
-        width: 4.375rem;
-        height: 4.375rem;
-        // flex-grow: 1;
+        width: $concert-img-mobile;
+        height: $concert-img-mobile;
         object-fit: cover;
     }
-
+    
     &__name {
         max-width: 60%;
         text-align: left;
         color: $primary-accent;
+        font-size: .9375rem;
+    }
+    
+    &__popup {
+        @extend .concert;
+        box-shadow: none;
+        padding: 0;
+        gap: $s-gap;
     }
 
     &__info {
         width: 100%;
-        display: block;
-        text-align: left;
-        padding: $mobile-spacing;
+        padding: $xs-gap;
+    }
+
+    &__text-div {
+        @include flex-box(row, flex-start, center);
+        width: 100%;
+        gap: $s-gap;
     }
 
     &__text {
+        color: $secondary-text;
+        font-size: .8125rem;
+        font-weight: 600;
 
         &--bold {
-            font-weight: 600;
+            color: $secondary-bckgd;
+            font-size: .875rem;
+            font-weight: 700;
         }
     }
 

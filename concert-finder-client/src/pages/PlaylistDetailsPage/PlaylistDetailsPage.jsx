@@ -52,7 +52,6 @@ export default function PlaylistDetailsPage() {
 		}
 	}, [playlistUsers]);
 
-
 	const handleRotate = () => {
 		setFlip(!flip);
 		setSlide(!slide);
@@ -63,14 +62,10 @@ export default function PlaylistDetailsPage() {
 			setShowConcertDetails(null);
 			return;
 		} else {
-			setShowConcertDetails(eventId)
+			setShowConcertDetails(eventId);
 			return;
 		}
-		
 	};
-
-
-
 
 	// commented out since it probably doesn't
 	// make sense for it to not show up when the mouse is gone, if the
@@ -81,20 +76,29 @@ export default function PlaylistDetailsPage() {
 			<section className="playlist__overview">
 				{playlist ? (
 					<>
-						<Link className="playlist__url" to={playlist.uri} >
+						<Link className="playlist__url" to={playlist.uri}>
 							<h1 className="playlist__text">{playlist.name}</h1>
-							<article className={`playlist__hover-block ${flip? "playlist__hover-block--open": ""}`}>
-
+							<article
+								className={`playlist__hover-block ${
+									flip ? "playlist__hover-block--open" : ""
+								}`}
+							>
 								{/* front */}
-								<img className={`playlist__cover ${slide? "playlist__cover--slide" : ""}`} src={playlist.images[0].url} />
+								<img
+									className={`playlist__cover ${
+										slide ? "playlist__cover--slide" : ""
+									}`}
+									src={playlist.images[0].url}
+								/>
 
-
-								
-									{artistsList ? (
-										<>
-
+								{artistsList ? (
+									<>
 										{/* backside */}
-										<section className={`playlist__top-artists ${slide? "playlist__top-artists--slide" : ""}`}>
+										<section
+											className={`playlist__top-artists ${
+												slide ? "playlist__top-artists--slide" : ""
+											}`}
+										>
 											<h3>Top Artists in Playlist</h3>
 											<ul>
 												{artistsList.map((artist) => {
@@ -105,36 +109,34 @@ export default function PlaylistDetailsPage() {
 													);
 												})}
 											</ul>
-											</section>
-										</>) : ""}
-								
-										</article>
+										</section>
+									</>
+								) : (
+									""
+								)}
+							</article>
 
 							<p className="playlist__text playlist__text--details">
 								Total tracks: {playlist.tracks.total}
 							</p>
-
-
 						</Link>
-						
 					</>
 				) : (
 					""
 				)}
 			</section>
-			
-			<svg onClick={handleRotate} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="m360-160-56-56 70-72q-128-17-211-70T80-480q0-83 115.5-141.5T480-680q169 0 284.5 58.5T880-480q0 62-66.5 111T640-296v-82q77-20 118.5-49.5T800-480q0-32-85.5-76T480-600q-149 0-234.5 44T160-480q0 24 51 57.5T356-372l-52-52 56-56 160 160-160 160Z"/></svg>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+			<svg
+				onClick={handleRotate}
+				xmlns="http://www.w3.org/2000/svg"
+				height="24px"
+				viewBox="0 -960 960 960"
+				width="24px"
+				fill="black"
+			>
+				<path d="m360-160-56-56 70-72q-128-17-211-70T80-480q0-83 115.5-141.5T480-680q169 0 284.5 58.5T880-480q0 62-66.5 111T640-296v-82q77-20 118.5-49.5T800-480q0-32-85.5-76T480-600q-149 0-234.5 44T160-480q0 24 51 57.5T356-372l-52-52 56-56 160 160-160 160Z" />
+			</svg>
+
 			{friendsInfo ? (
 				<section className="friends">
 					<h3 className="friends__header">Buddies in Playlist*</h3>
@@ -145,10 +147,11 @@ export default function PlaylistDetailsPage() {
 									<li className="friend" key={friend.id}>
 										<p className="friend__name">{friend.display_name}</p>
 										<div
-											className={`friend__pic-div ${friend.images.length == 0
-												? "friend__pic-div--default"
-												: ""
-												}`}
+											className={`friend__pic-div ${
+												friend.images.length == 0
+													? "friend__pic-div--default"
+													: ""
+											}`}
 										>
 											<img
 												className="friend__pic"
@@ -182,53 +185,69 @@ export default function PlaylistDetailsPage() {
 						{eventsList.map((event) => {
 							return (
 								<>
-								<li key={event.id} className="concert" onClick={() => handleEventClick(event.id)}>
-									<div className="concert__image-div">
-										<img className="concert__image" src={event.images} />
-									</div>
-									<h4 className="concert__name">{event.name}</h4>
-									
-								</li>
-							
-									{ showConcertDetails === event.id?  
-									<div className="concert__popup">
-										<div className="concert__info">
-											<p className="concert__text">
-												<span className="concert__text concert__text--bold">
-													Date:{" "}
-												</span>
-												{event.dates.start.localDate}
-											</p>
-											<p className="concert__text">
-												<span className="concert__text concert__text--bold">
-													Location:{" "}
-												</span>
-												{event.venues.venues[0].city.name}
-											</p>
-											<p className="concert__text">
-												<span className="concert__text concert__text--bold">
-													Venue:{" "}
-												</span>
-												{event.venues.venues[0].name}
-											</p>
+									<li
+										key={event.id}
+										className="concert"
+										onClick={() => handleEventClick(event.id)}
+									>
+										<div className="concert__main">
+											<div className="concert__image-div">
+												<img className="concert__image" src={event.images} />
+											</div>
+											<h4 className="concert__name">{event.name}</h4>
 										</div>
-
-										<div className="concert__btns">
-											<Button
-												text="📧"
-												handleFunc={openModal}
-												btnType="no-borders"
-											/>
-											<Button
-												text="↗"
-												handleFunc={openModal}
-												btnType="no-borders"
-											/>
-										</div>
-									</div>
-									: ""
-
-									}
+										{showConcertDetails === event.id ? (
+											<article className="concert__popup">
+												<section className="concert__info">
+													<div className="concert__text-div">
+														<h4 className="concert__text concert__text--bold">
+															Date{" "}
+														</h4>
+														<p className="concert__text">
+															{new Date(
+																event.dates.start.localDate
+															).toLocaleDateString("en-US", {
+																weekday: "long",
+																year: "numeric",
+																month: "long",
+																day: "numeric",
+															})}
+														</p>
+													</div>
+													<div className="concert__text-div">
+														<h4 className="concert__text concert__text--bold">
+															Location{" "}
+														</h4>
+														<p className="concert__text">
+															{event.venues.venues[0].city.name}
+														</p>
+													</div>
+													<div className="concert__text-div">
+														<h4 className="concert__text concert__text--bold">
+															Venue{" "}
+														</h4>
+														<p className="concert__text">
+															{event.venues.venues[0].name}
+														</p>
+													</div>
+												</section>
+												<div className="concert__btns">
+													<Button
+														text="📧"
+														handleFunc={openModal}
+														btnType="no-borders"
+													/>
+													<Button
+														text="↗"
+														handleFunc={openModal}
+														btnType="no-borders"
+													/>
+												</div>
+											</article>
+										) : (
+											""
+										)}
+									</li>
 								</>
 							);
 						})}
