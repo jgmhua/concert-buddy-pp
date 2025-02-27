@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import "./ConcertCard.scss";
+import { useState } from "react";
 
 //FIXME: figure out what to do with events that don't have an external url
 //TODO: work on openModal function
@@ -10,8 +11,10 @@ export default function ConcertCard({
 	event,
 	handleEventClick,
 }) {
+	const [showModal, setShowModal] = useState(false);
+
 	function openModal() {
-		console.log("opening modal!");
+		setShowModal(true);
 	}
 
 	return (
@@ -22,6 +25,13 @@ export default function ConcertCard({
 				</div>
 				<h4 className="concert__name">{event.name}</h4>
 			</div>
+			<span
+				className={`concert hover-text ${
+					showConcertDetails !== event.id ? "hover-text--hover" : ""
+				}`}
+			>
+				See concert details
+			</span>
 			{showConcertDetails === event.id ? (
 				<article className="concert__popup">
 					<section className="concert__info">
@@ -63,6 +73,31 @@ export default function ConcertCard({
 							group_add
 						</span>
 					</div>
+					{showModal === true ? (
+						<section className="modal">
+							{/* <div className="modal__overlay"> */}
+								<div className="modal__content">
+									<h3 className="modal__title">Invite Friends to Concert</h3>
+									<div className="modal__message">
+										{/* TODO: include some sort of image */}
+										<h4>Concert Name</h4>
+										<h4>Date</h4>
+										<h4>Location</h4>
+										<h4>Link</h4>
+										<form className="invite">
+										<label>
+											Invite Friends
+											{/* TODO: for now, since we don't have access to their emails through Spotify, users will have to manually type in each person's email -- think about solutions for future*/}
+											<input></input>
+										</label>
+										</form>
+									</div>
+								</div>
+							{/* </div> */}
+						</section>
+					) : (
+						""
+					)}
 				</article>
 			) : (
 				""

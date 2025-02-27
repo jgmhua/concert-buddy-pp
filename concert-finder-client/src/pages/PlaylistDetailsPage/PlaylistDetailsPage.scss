@@ -6,14 +6,14 @@
     @include flex-box(column, center, center);
     width: 100%;
     background-color: $secondary-accent;
-    
+
     &__overview {
         @include flex-box(column, flex-start, center);
         width: 100%;
         gap: $xs-gap;
         padding: $mobile-spacing;
         background-color: $secondary-accent;
-        
+
         &:hover {
             cursor: pointer;
         }
@@ -34,6 +34,7 @@
     }
 
     &__title {
+        text-align: center;
         color: $primary-accent;
         font-size: 2rem;
         padding: $mobile-spacing;
@@ -49,6 +50,25 @@
         // bottom: 0;
         right: 12%;
     }
+
+    &__action-btn {
+        text-align: center;
+        .hover-text {
+            display: none;
+            position: absolute;
+            right: 25%; //adjust if needed
+            z-index: 5;
+        }
+
+        &:hover .hover-text {
+            display: block;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: $mobile-spacing;
+            border-radius: .5rem;
+
+            //FIXME: clean up variables and also fix font
+        }
+    }
 }
 
 .material-symbols-outlined {
@@ -62,31 +82,30 @@
         background-color: inherit;
         background-color: $primary-accent;
         opacity: 85%;
-        // position: absolute;
-        // bottom: -1.5rem;
-        // bottom: 5%;
-        // left: 12%;
-    }
-    
-    &--last-page {
-        background-color: inherit;
-        background-color: $primary-accent;
-        opacity: 85%;
-        // position: absolute;
-        // bottom: -1.5rem;
-        // bottom: 5%;
-        // right: 12%;
     }
 
     &--group {
         background-color: inherit;
         background-color: $primary-accent;
         opacity: 85%;
-        // position: absolute;
-        // bottom: -1.5rem;
-        // bottom: 5%;
     }
-    
+
+    &--last-page {
+        background-color: inherit;
+        background-color: $primary-accent;
+        opacity: 85%;
+
+        .hover-text {
+            display: none;
+            position: absolute;
+            right: 50%;
+        }
+
+        &:hover .hover-text {
+            display: block;
+        }
+    }
+
     &--close {
         box-shadow: none;
         padding: 0.25rem;
@@ -112,7 +131,7 @@
 
     &__top {
         @include flex-box(row, space-between, flex-start);
-        width: 100%; 
+        width: 100%;
     }
 
     &__header-div {
@@ -125,7 +144,7 @@
         font-size: 1.625rem;
         color: $primary-neutral;
     }
-    
+
     &__asterisk {
         font-size: .625rem;
     }
@@ -144,6 +163,7 @@
     text-align: center;
     gap: $mobile-spacing;
     padding: $mobile-spacing 0;
+    cursor: pointer;
 
     &__suggestions {
         @include flex-box(row, center, center, center, wrap);
@@ -151,11 +171,11 @@
         padding: $mobile-spacing 0;
         gap: $s-gap;
     }
-    
+
     &__btn-div {
         padding: $mobile-spacing 0;
     }
-    
+
     &__list {
         @include flex-box(row, center, center, center, wrap);
         width: 90%;

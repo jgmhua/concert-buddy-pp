@@ -86,23 +86,27 @@ export default function PlaylistDetailsPage() {
 								/>
 							</Link>
 							<div className="playlist__action-btns">
-								<Link to={playlist.uri}>
-									<span className="material-symbols-outlined material-symbols-outlined--link">
+								<Link className="playlist__action-btn" to={playlist.uri}>
+									<p className="material-symbols-outlined material-symbols-outlined--link">
 										open_in_new
-									</span>
+									</p>
+									<span className="hover-text">Open playlist in Spotify</span>
 								</Link>
-								<span
-									className="material-symbols-outlined material-symbols-outlined--group"
+								<div
+									className="playlist__action-btn"
 									onClick={() => setShowFriends(!showFriends)}
 								>
-									group
-								</span>
-								<span
-									className="material-symbols-outlined material-symbols-outlined--last-page"
-									onClick={handleRotate}
-								>
-									expand_circle_right
-								</span>
+									<p className="material-symbols-outlined material-symbols-outlined--group">
+										group
+									</p>
+									<span className="hover-text">See friends in playlist</span>
+								</div>
+								<div className="playlist__action-btn" onClick={handleRotate}>
+									<p className="material-symbols-outlined material-symbols-outlined--last-page">
+										expand_circle_right
+									</p>
+									<span className="hover-text">See playlist top artists</span>
+								</div>
 							</div>
 						</div>
 						{/* </div> */}

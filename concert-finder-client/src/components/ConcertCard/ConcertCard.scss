@@ -6,9 +6,28 @@
     @include flex-box(column, center, center);
     @include basic-rounded-border;
     @include shadow;
+    min-height: 6.375rem;
     width: 100%;
     padding: $mobile-spacing;
     background-color: $primary-neutral;
+    position: relative;
+
+    .hover-text {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        z-index: 5;
+        color: white;
+    }
+
+    &:hover .hover-text--hover {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, .7);
+    }
 
     &__main {
         @include flex-box(row, flex-start, center, center);
@@ -74,4 +93,32 @@
     background-color: $secondary-accent;
     background-color: $secondary-bckgd;
     color: $primary-bckgd;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, .7);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    &__content {
+        width: 80%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: $s-gap;
+        padding: 3rem 2rem;
+        background-color: white;
+        border-radius: 0.5rem;
+
+    }
 }
