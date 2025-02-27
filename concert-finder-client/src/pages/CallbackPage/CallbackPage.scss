@@ -6,8 +6,8 @@
     @include flex-box(column, center, center);
     width: 100%;
     gap: $mobile-spacing;
+    padding-top: 2rem;
     animation: 0.75s ease-out 0s 1 slide-fade-top;
-
 
     @include tablet {
         gap: $tablet-spacing;
@@ -32,52 +32,37 @@
     }
 }
 
-.user-info {
-    // @extend .callback;
-    display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-
-    // &__text {
-    //     font-size: 1.125rem;
-    //     color: blueviolet;
-
-        &--bold {
-            font-weight: bold;
-            color: black;
-        }
+.user {
+    @include flex-box(column, flex-start, center);
+    gap: $s-gap;
     
+    &--name {
+        gap: 0;
+    }
+
+    &__text, &--email {
+        font-weight: 500;
+        font-style: italic;
+    }
 }
 
 .playlists {
     @extend .callback;
-    @extend .user-info;
+    @extend .user;
     background-color: $secondary-bckgd;
     padding: $mobile-spacing 0;
     gap: $mobile-spacing;
 
     &__header {
+        padding-top: 1.5rem;
         font-size: 1.5rem;
         font-weight: bold;
     }
 
-    &__shared-list {
+    &__list {
         @include flex-box(row, center, center, null, wrap);
-        width: 95%;
-        gap: 2rem;
-        list-style: none;
-        padding: 1.5rem;
-    }
-
-    &__item {
         width: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        gap: $mobile-spacing;
-        list-style: none;
+        gap: 2rem;
+        padding: $mobile-spacing;
     }
-
 }

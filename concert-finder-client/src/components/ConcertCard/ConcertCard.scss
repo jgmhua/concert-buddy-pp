@@ -1,0 +1,77 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_keyframes.scss" as *;
+
+.concert {
+    @include flex-box(column, center, center);
+    @include basic-rounded-border;
+    @include shadow;
+    width: 100%;
+    padding: $mobile-spacing;
+    background-color: $primary-neutral;
+
+    &__main {
+        @include flex-box(row, flex-start, center, center);
+        width: 100%;
+        gap: $s-gap;
+    }
+
+    &__image-div {
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    &__image {
+        @include basic-rounded-border;
+        padding: 0rem;
+        width: $concert-img-mobile;
+        height: $concert-img-mobile;
+        object-fit: cover;
+    }
+
+    &__name {
+        max-width: 60%;
+        text-align: left;
+        color: $primary-accent;
+        font-size: .9375rem;
+    }
+
+    &__popup {
+        @extend .concert;
+        @include flex-box(row, space-between, center, center);
+        width: 100%;
+        padding: $xs-gap;
+        box-shadow: none;
+    }
+
+    &__text-div {
+        @include flex-box(row, flex-start, center);
+        gap: $s-gap;
+    }
+
+    &__text {
+        color: $secondary-text;
+        font-size: .8125rem;
+        font-weight: 600;
+
+        &--bold {
+            color: $secondary-bckgd;
+            font-size: .875rem;
+            font-weight: 700;
+        }
+    }
+
+    &__btns {
+        @include flex-box(column, center, center);
+        gap: $xs-gap;
+    }
+}
+
+.concert-btn {
+    @include flex-box(row, center, center);
+    padding: 0.75rem;
+    background-color: rgb(213, 235, 243);
+    background-color: $secondary-accent;
+    background-color: $secondary-bckgd;
+    color: $primary-bckgd;
+}

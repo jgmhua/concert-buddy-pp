@@ -10,10 +10,11 @@
 }
 
 .app {
-	@include flex-box(column, flex-start, center);
+	@include flex-box(column, space-between, center);
 	width: 100%;
 	min-height: 100vh;
-	gap: $mobile-spacing;
+	// @include flex-box(column, flex-start, center);
+	// gap: $mobile-spacing;
 	// padding: $mobile-spacing;
 	
 	@include tablet {
@@ -32,6 +33,7 @@
 
 	&__footer-container {
 		justify-self: flex-end;
+		text-align: center;
 	}
 }
 

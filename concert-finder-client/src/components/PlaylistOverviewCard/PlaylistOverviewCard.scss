@@ -1,0 +1,83 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_keyframes.scss" as *;
+
+.overview-card {
+    @include flex-box(row, center);
+    width: 100%;
+    animation: 1s ease-out 0s 1 slide-fade-top;
+    transform-style: preserve-3d;
+    transform: rotateY(var(--rotate-y, 0));
+    transition: 0.3s;
+    cursor: pointer;
+
+    @include tablet {
+        transform: none;
+    }
+
+    &--flip {
+        border-radius: 2rem;
+        --rotate-y: 180deg;
+
+        @include tablet {
+            --rotate-y: 0deg;
+        }
+    }
+
+    &__front {
+        @include shadow;
+        width: 80%;
+        border-radius: 2rem;
+        animation: 1s ease-out 0s 1 slide-fade-top;
+        backface-visibility: hidden;
+
+        &--slide {
+            @include tablet {
+                transform: translateX(-40%);
+            }
+        }
+    }
+
+    &__back {
+        @extend .overview-card__front;
+        @include flex-box(column, space-evenly, center);
+        height: 100%;
+        padding: 1rem;
+        gap: $xs-gap;
+        background-color: $secondary-bckgd;
+        position: absolute;
+        z-index: -1;
+        transform: rotateY(180deg);
+
+        @include tablet {
+            transform: rotateY(0deg);
+        }
+
+        &--slide {
+            @include tablet {
+                transform: translateX(40%);
+            }
+        }
+    }
+
+    &__top-artists {
+        @include flex-box(column, flex-start, center);
+        gap: $xs-gap;
+    }
+
+    &__title {
+        font-size: 1.375rem;
+        color: $primary-bckgd;
+    }
+    
+    &__text {
+        font-weight: 500;
+        font-size: .9375rem;
+        
+        &--details {
+            font-size: 1rem;
+            color: $primary-neutral;
+            font-weight: 600;
+        }
+    }
+}

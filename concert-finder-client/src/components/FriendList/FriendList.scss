@@ -1,0 +1,39 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_keyframes.scss" as *;
+
+//FIXME: fix variables... 
+.friend {
+    @include flex-box(row, center, center, center);
+    gap: $xs-gap;
+
+    &__name {
+        font-weight: 600;
+    }
+
+    &__pic-div {
+        // @include shadow;
+        max-width: 3rem;
+        min-width: 3rem;
+        max-height: 3rem;
+        min-height: 3rem;
+        border-radius: 50%;
+        overflow: hidden;
+
+        &--default {
+            color: gray;
+            background-color: gray;
+        }
+    }
+
+    &__pic {
+        height: 3rem;
+        width: 3rem;
+        object-fit: cover;
+        object-position: center;
+
+        &--default {
+            background-color: gray;
+        }
+    }
+}

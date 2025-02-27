@@ -31,9 +31,9 @@
 
 /* Styles? */
 //rounded borders
-@mixin basic-rounded-border($border-thickness: 0,$border-colour: lightgray) {
+@mixin basic-rounded-border($border-thickness: 0, $border-rad: $border-radius-l, $border-colour: lightgray) {
     border: $border-thickness solid $border-colour;
-    border-radius: $border-radius-l;
+    border-radius: $border-rad;
     padding: $mobile-spacing;
 }
 
