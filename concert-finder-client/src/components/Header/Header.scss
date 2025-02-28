@@ -10,7 +10,7 @@
     @extend .header;
 }
 
-.user-info {
-    @include flex-box(row, center, center);
-    gap: 0.5rem;
-}
+// .user-info {
+//     @include flex-box(row, center, center);
+//     gap: 0.5rem;
+// }

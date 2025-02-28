@@ -1,0 +1,62 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_keyframes.scss" as *;
+
+
+.playlists {
+    &__item {
+        @include flex-box(column, space-between, center);
+        @include basic-rounded-border(0, 3rem);
+        @include shadow;
+        width: 95%;
+        padding: 0;
+        aspect-ratio: 0.95;
+        overflow: hidden;
+        transition: 0.5s;
+
+        &:hover {
+            transform: translateY(-2%);
+        }
+    }
+
+    &__cover-div {
+        @include basic-rounded-border;
+        width: 100%;
+        padding: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        overflow: hidden;
+    }
+
+    &__cover {
+        width: 100%;
+    }
+
+    &__info-div {
+        @include flex-box(column, center, center);
+        @include basic-rounded-border;
+        --h: 8vh;
+        width: 100%;
+        min-height: 30%;
+        padding: $mobile-spacing 1.5rem;
+        gap: $xs-gap;
+        border-width: 0;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        background-color: $primary-neutral;
+    }
+
+    &__title {
+        max-height: 85%;
+        color: $secondary-bckgd;
+        font-weight: 800;
+        font-size: calc((var(--h) / 4));
+        line-height: calc((var(--h) / 4));
+    }
+
+    &__tracks {
+        font-size: .875rem;
+        font-weight: 600;
+        color: $primary-accent;
+    }
+}

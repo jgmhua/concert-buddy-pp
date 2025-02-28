@@ -8,3 +8,50 @@ $tablet-spacing: 2rem;
 $desktop-spacing: 3rem;
 
 $xs-gap: 0.5rem;
+$s-gap: 1rem;
+$sm-gap: 1.5rem;
+$m-gap: 2rem;
+$ml-gap: 2.5rem;
+$l-gap: 3rem;
+
+// color codes - can change
+// once we decide palette!
+
+//borders
+$border-radius-l: 3rem;
+$border-radius-m: 1rem;
+$border-radius-s: 0.75rem;
+$border-radius-xs: 0.5rem;
+
+$border-width-none: 0;
+$border-width-thin: .0625rem;
+$border-width-reg: .125rem;
+$border-width-med: .25rem;
+$border-width-thick: .5rem;
+
+
+//dimensions
+$concert-img-mobile: 4.375rem;
+
+// Colour palette!
+$teal: #00838f;
+$tiffany-blue: #83c5be;
+$alice-blue: #edf6f9;
+$pale-dogwood: #ffddd2;
+$atomic-tangerine: #e29578;
+
+//Alternative darks
+$obsidian: #0b1215;         //soft and deep
+$lava-black: #352f36;       //warm
+$midnight-blue: #101720;    //cool and calm
+
+//Color scheme!
+$primary-bckgd: $alice-blue;
+$primary-accent: $atomic-tangerine;
+$primary-text: $obsidian;
+$primary-neutral: $pale-dogwood;
+$primary-text-dark: $midnight-blue;
+
+$secondary-bckgd: $teal;
+$secondary-accent: $tiffany-blue;
+$secondary-text: $lava-black;

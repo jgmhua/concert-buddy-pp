@@ -1,5 +1,6 @@
 @use "../../styles/partials/_variables.scss" as *;
 @use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_typography.scss" as *;
 
 //TODO: figure out typography standards later? 
 
@@ -13,13 +14,12 @@
     }
 
     &__header {
-        font-size: x-large;
-        font-weight: 700;
-        color: blueviolet;
+        text-align: center;
+        padding-bottom: $mobile-spacing;
     }
-
+    
     &__subheader {
-        font-size: medium;
-        font-weight: 600;
+        text-align: center;
+        padding-bottom: 0.75rem;
     }
 }

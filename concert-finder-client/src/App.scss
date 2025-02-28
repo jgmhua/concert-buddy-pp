@@ -1,5 +1,7 @@
 @use "./styles/partials/_variables.scss" as *;
 @use "./styles/partials/_mixins.scss" as *;
+@use "./styles/partials/_typography.scss" as *;
+
 
 * {
 	padding: 0;
@@ -8,20 +10,21 @@
 }
 
 .app {
-	@include flex-box(column, flex-start, center);
+	@include flex-box(column, space-between, center);
 	width: 100%;
 	min-height: 100vh;
-	gap: $mobile-spacing;
-	padding: $mobile-spacing;
+	// @include flex-box(column, flex-start, center);
+	// gap: $mobile-spacing;
+	// padding: $mobile-spacing;
 	
 	@include tablet {
 		gap: $tablet-spacing;
-		padding: $tablet-spacing;
+		// padding: $tablet-spacing;
 	}
 
 	@include desktop {
 		gap: $desktop-spacing;
-		padding: $desktop-spacing;
+		// padding: $desktop-spacing;
 	}
 
 	&__header-container {
@@ -30,6 +33,7 @@
 
 	&__footer-container {
 		justify-self: flex-end;
+		text-align: center;
 	}
 }
 
@@ -38,6 +42,7 @@ body {
     font-size: 0.75rem;
     font-weight: 400;
 	line-height: 1rem;
+	background-color: $primary-bckgd;
 }
 
 ul,ol,li {

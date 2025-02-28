@@ -1,0 +1,185 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_keyframes.scss" as *;
+
+.playlist {
+    width: 100%;
+    @include flex-box(column, center, center);
+    gap: 1rem;
+
+    &__overview {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        // @include flex-box(row, space-betweeen, center);
+
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__hover-block {
+        display: flex;
+        justify-content: center;
+        animation: 1s ease-out 0s 1 slide-fade-top;
+        
+
+        &--open {
+            background-color: $secondary-color-background;
+            border-radius: 2rem;
+        }
+    }
+
+    &__cover {
+        // padding: $xs-gap 0;
+        width: 60%;
+        border-radius: 2rem;
+        animation: 1s ease-out 0s 1 slide-fade-top;
+    }
+
+    &__text {
+        font-size: 1.125rem;
+        color: blueviolet;
+
+        &--details {
+            font-size: 1rem;
+            font-weight: bold;
+            color: black;
+        }
+    }
+
+ 
+
+    &__top-artists {
+        background-color: $secondary-color-background;
+        width: 50%;
+        border-radius: 0rem 2rem 2rem 0rem;
+        animation: 1s ease-out 0s 1 slide-fade-top;
+
+    }
+
+    &__url {
+        font-size: 0.75rem;
+    }
+}
+
+.friends {
+    width: 100%;
+    @include flex-box(column, center, center);
+    gap: $xs-gap;
+    position: relative;
+
+    &__header {
+        font-size: 1.125rem;
+        color: blueviolet;
+    }
+
+    &__list-container {
+        @include flex-box(column, center, center, space-betweeen, wrap);
+        gap: $xs-gap;
+    }
+
+    &__list {
+        @include flex-box(row, center, center, center, wrap);
+        gap: $xs-gap;
+    }
+}
+
+.friend {
+    @include flex-box(row, center, center, center);
+    gap: $xs-gap;
+
+    &__name {
+        font-size: 1rem;
+        font-weight: bold;
+        color: black;
+    }
+
+    &__pic-div {
+        max-width: 4rem;
+        min-width: 4rem;
+        max-height: 4rem;
+        min-height: 4rem;
+        border-radius: 50%;
+        border: .1875rem solid gray;
+        overflow: hidden;
+
+        &--default {
+            color: gray;
+            background-color: gray;
+        }
+    }
+
+    &__pic {
+        height: 4rem;
+        width: 4rem;
+        object-fit: cover;
+        object-position: center;
+        color: gray;
+
+        &--default {
+            background-color: gray;
+        }
+    }
+}
+
+.concerts {
+    @include flex-box(column, center, center, center);
+    width: 100%;
+    padding: $mobile-spacing;
+    gap: $mobile-spacing;
+
+    &__list {
+        @include flex-box(row, center, center, center, wrap);
+        width: 100%;
+        padding: $mobile-spacing;
+        gap: $mobile-spacing;
+    }
+}
+
+.concert {
+    @include basic-rounded-border;
+    @include flex-box(column, space-around, center, center);
+    width: 30%;
+    min-width: 10rem;
+    min-height: 25rem;
+    max-height: 25rem;
+    gap: $xs-gap;
+    padding: $mobile-spacing 1.5rem;
+    text-align: center;
+
+    &__image-div {
+        border-radius: 1rem;
+        max-height: 9rem;
+        overflow: hidden;
+    }
+
+    &__image {
+        width: 100%;
+        // flex-grow: 1;
+        // object-fit: fill;
+    }
+
+    &__info {
+        width: 100%;
+        display: block;
+        text-align: left;
+        padding: $mobile-spacing;
+    }
+
+    &__text {
+
+        &--bold {
+            font-weight: 600;
+        }
+    }
+
+    &__btns {
+        @include flex-box(row, center, center);
+        width: 100%;
+        gap: $xs-gap;
+    }
+}
