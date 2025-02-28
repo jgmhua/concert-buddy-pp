@@ -62,64 +62,12 @@
 
         &:hover .hover-text {
             display: block;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: $overlay-bckgd;
             padding: $mobile-spacing;
             border-radius: .5rem;
 
             //FIXME: clean up variables and also fix font
         }
-    }
-}
-
-.material-symbols-outlined {
-    @include shadow;
-    background-color: $primary-accent;
-    padding: $xs-gap;
-    border-radius: 50%;
-    color: $primary-bckgd;
-
-    &--link {
-        background-color: inherit;
-        background-color: $primary-accent;
-        opacity: 85%;
-    }
-
-    &--group {
-        background-color: inherit;
-        background-color: $primary-accent;
-        opacity: 85%;
-    }
-
-    &--last-page {
-        background-color: inherit;
-        background-color: $primary-accent;
-        opacity: 85%;
-
-        .hover-text {
-            display: none;
-            position: absolute;
-            right: 50%;
-        }
-
-        &:hover .hover-text {
-            display: block;
-        }
-    }
-
-    &--close {
-        box-shadow: none;
-        padding: 0.25rem;
-        opacity: 85%;
-        background-color: $primary-neutral;
-        color: $primary-accent;
-        position: relative;
-        left: 0.5rem;
-        bottom: 0.5rem;
-    }
-
-    &--circle-down {
-        justify-self: flex-end;
-        padding: 0.75rem;
     }
 }
 

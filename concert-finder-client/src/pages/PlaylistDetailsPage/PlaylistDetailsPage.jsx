@@ -30,10 +30,7 @@ export default function PlaylistDetailsPage() {
 		getEventsByArtists(artistsList, eventsList, setEventsLists);
 	}
 
-	//TODO: create modal that opens for friends invite -- users can select/de-select certain friends too
-	function openModal() {
-		console.log("I also do nothing at the moment!");
-	}
+	//TODO: FUTURE IMPLEMENTATION -- create modal that opens for friends invite -- users can select/de-select certain friends too
 
 	useEffect(() => {
 		checkAccessToken();
@@ -102,8 +99,9 @@ export default function PlaylistDetailsPage() {
 									<span className="hover-text">See friends in playlist</span>
 								</div>
 								<div className="playlist__action-btn" onClick={handleRotate}>
-									<p className="material-symbols-outlined material-symbols-outlined--last-page">
-										expand_circle_right
+									<p className="material-symbols-outlined material-symbols-outlined--flip">
+										{/* expand_circle_right */}
+										flip
 									</p>
 									<span className="hover-text">See playlist top artists</span>
 								</div>

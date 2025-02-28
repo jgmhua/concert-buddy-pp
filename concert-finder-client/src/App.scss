@@ -78,6 +78,35 @@ textarea {
 	border: .0625rem solid gray;
 }
 
+//GOOGLE MATERIAL ICONS
+.material-symbols-outlined {
+    @include shadow;
+    background-color: $primary-accent;
+    padding: $xs-gap;
+    border-radius: 50%;
+    color: $primary-bckgd;
+
+    // &--link {}
+    // &--group {}
+    // &--flip {}
+
+    &--close {
+        box-shadow: none;
+        padding: 0.25rem;
+        background-color: $primary-neutral;
+        color: $primary-accent;
+        position: relative;
+        left: 0.5rem;
+        bottom: 0.5rem;
+    }
+
+    &--circle-down {
+        justify-self: flex-end;
+        padding: 0.75rem;
+    }
+}
+
+
 .message {
 
 	&--small {

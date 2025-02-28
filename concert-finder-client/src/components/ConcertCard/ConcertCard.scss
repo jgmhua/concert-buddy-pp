@@ -26,7 +26,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(0, 0, 0, .7);
+        background-color: $overlay-bckgd;
     }
 
     &__main {
@@ -101,7 +101,7 @@
 }
 
 .modal {
-    background-color: rgba(0, 0, 0, .7);
+    background-color: $overlay-bckgd;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -171,8 +171,11 @@
         border: 2px solid $primary-accent;
     }
 
-    &__submit {}
-
+    &__submit {
+        @include shadow;
+        @include btn-default;
+        border: 2px solid $primary-accent;
+    }
 }
 
 .review {
