@@ -77,3 +77,12 @@ textarea {
 	border-radius: $xs-gap;
 	border: .0625rem solid gray;
 }
+
+.message {
+
+	&--small {
+		color: $primary-accent;
+		text-align: left;
+		font-size: .5625rem;
+	}
+}

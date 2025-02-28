@@ -32,6 +32,11 @@
     &__main {
         @include flex-box(row, flex-start, center, center);
         width: 100%;
+    }
+
+    &__left {
+        width: 100%;
+        @extend .concert__main;
         gap: $s-gap;
     }
 
@@ -59,7 +64,7 @@
         @extend .concert;
         @include flex-box(row, space-between, center, center);
         width: 100%;
-        padding: $xs-gap;
+        padding: 0;
         box-shadow: none;
     }
 
@@ -109,16 +114,70 @@
     z-index: 1000;
 
     &__content {
+        padding: $mobile-spacing;
         width: 80%;
         height: 50%;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
         gap: $s-gap;
-        padding: 3rem 2rem;
         background-color: white;
-        border-radius: 0.5rem;
+        border-radius: 1rem;
+        position: relative;
+    }
 
+    &__close {
+        padding: $xs-gap;
+        border-radius: 50%;
+        background-color: $primary-neutral;
+        border-color: $primary-neutral;
+        color: $primary-accent;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.75rem;
+    }
+
+    &__concert-details {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.invite {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $s-gap;
+
+    &__form {
+        @extend .invite;
+    }
+
+    &__label {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+        color: $teal; //
+        font-weight: 600;
+    }
+
+    &__input {
+        @include shadow;
+        background-color: $primary-neutral;
+        opacity: 85%;
+        border: 2px solid $primary-accent;
+    }
+
+    &__submit {}
+
+}
+
+.review {
+    &__email-list {
+        word-wrap: break-word;
+        word-break: break-word;
     }
 }
