@@ -85,11 +85,18 @@ textarea {
     padding: $xs-gap;
     border-radius: 50%;
     color: $primary-bckgd;
+	cursor: pointer;
 
     // &--link {}
     // &--group {}
     // &--flip {}
 
+	&--circle-down { //expand button
+		justify-self: flex-end;
+		padding: 0.75rem;
+	}
+
+	//most navigation buttons will be similarly styled
     &--close {
         box-shadow: none;
         padding: 0.25rem;
@@ -100,17 +107,19 @@ textarea {
         bottom: 0.5rem;
     }
 
-    &--circle-down {
-        justify-self: flex-end;
-        padding: 0.75rem;
-    }
+	&--back {
+		@extend .material-symbols-outlined--close;
+		@include shadow;
+		position: static;
+	}
 }
 
 
 .message {
 
 	&--small {
-		color: $primary-accent;
+		// color: $primary-accent;
+		color: $primary-bckgd;
 		text-align: left;
 		font-size: .5625rem;
 	}

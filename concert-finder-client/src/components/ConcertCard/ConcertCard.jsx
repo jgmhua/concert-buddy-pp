@@ -1,10 +1,12 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
+import Modal from "../Modal/Modal";
 import "./ConcertCard.scss";
+import InviteForm from "../InviteForm/InviteForm";
 
-const {VITE_BASE_URL,VITE_PORT} = import.meta.env;
+const { VITE_BASE_URL, VITE_PORT } = import.meta.env;
 
 //FIXME: figure out what to do with events that don't have an external url
 //TODO: work on openModal function
@@ -18,13 +20,12 @@ export default function ConcertCard({
 	const [showModal, setShowModal] = useState(false);
 	const [allEmails, setAllEmails] = useState([]);
 	const [emailList, setEmailList] = useState("");
-	// const allEmails = [];
 
 	const handleFriendInvites = async (event, allEmails) => {
 		event.preventDefault();
 		console.log("emailList:", emailList);
 		setAllEmails(emailList.split(","));
-		
+
 		//2025-02-28
 		//TODO: come back to this and continue
 		//TODO: pick an integration option for sending emails https://react.email/docs/introduction and then set up emailing functionality
@@ -33,7 +34,6 @@ export default function ConcertCard({
 		// 		`${VITE_BASE_URL}:${VITE_PORT}/invite`,
 		// } catch (error) {
 		// }
-
 	};
 
 	return (
@@ -59,7 +59,7 @@ export default function ConcertCard({
 			>
 				See concert details
 			</span> */}
-			{showConcertDetails === event.id ? (
+			{showConcertDetails === event.id && (
 				<article className="concert__popup">
 					<section className="concert__info">
 						<div className="concert__text-div">
@@ -100,63 +100,136 @@ export default function ConcertCard({
 							group_add
 						</span>
 						{showModal && (
-							<section className="modal">
-								<div className="modal__content">
-									<span
-										className="material-symbols-outlined modal__close"
-										onClick={() => setShowModal(false)}
-									>
-										close
-									</span>
-									<h3 className="modal__title">Invite Friends to Concert</h3>
-									<div className="modal__content">
-										{/* TODO: include some sort of image */}
-										<div className="modal__concert-details">
-											<h4>Concert Name</h4>
-											<h4>Date</h4>
-											<h4>Location</h4>
-											<h4>Link</h4>
-										</div>
-										<form
-											className="invite__form"
-											onSubmit={handleFriendInvites}
-										>
-											<label className="invite__label">
-												Invite Friends
-												<small className="message message--small">
-													Enter emails separated by comma.
-												</small>
-												<input
-													className="invite__input"
-													name="emails"
-													type="email"
-													multiple
-													placeholder="Ex: friend1@email.com,friend2@email.com"
-													onChange={(e) => {
-														setEmailList(e.target.value);
-													}}
-												/>
-											</label>
-											<div>
-												<h4>You're sending invites to the following friends</h4>
-												{allEmails &&
-													allEmails.map((email) => {
-														return <p key={email}>{email}</p>;
-													})}
-											</div>
-											<button type="submit" className="invite__submit">
-												Submit
-											</button>
-										</form>
+							<Modal
+								setShowModal={setShowModal}
+								modalContent={event}
+								title="Invite Friends to Concert"
+							>
+								{/*TODO: TURN CONCERT INFO INTO COMPONENT... WAS ALSO USED IN CONCERT CARD! */}
+								<section className="concert__info">
+									<div className="concert__text-div">
+										<h4 className="concert__text concert__text--bold">Date </h4>
+										<p className="concert__text">
+											{new Date(event.dates.start.localDate).toLocaleDateString(
+												"en-US",
+												{
+													weekday: "long",
+													year: "numeric",
+													month: "long",
+													day: "numeric",
+												}
+											)}
+										</p>
 									</div>
-								</div>
-							</section>
+									<div className="concert__text-div">
+										<h4 className="concert__text concert__text--bold">
+											Location{" "}
+										</h4>
+										<p className="concert__text">
+											{event.venues.venues[0].city.name}
+										</p>
+									</div>
+									<div className="concert__text-div">
+										<h4 className="concert__text concert__text--bold">
+											Venue{" "}
+										</h4>
+										<p className="concert__text">
+											{event.venues.venues[0].name}
+										</p>
+									</div>
+								</section>
+								<InviteForm
+									handleFriendInvites={handleFriendInvites}
+									allEmails={allEmails}
+									setEmailList={setEmailList}
+								/>
+							</Modal>
 						)}
 					</div>
 				</article>
-			) : (
-				""
 			)}
 		</li>
 	);
 }
+
+/* <form className="invite__form" onSubmit={handleFriendInvites}>
+	<h3>Select Friends</h3>
+	<label className="invite__label">
+		Enter emails
+		<small className="message message--small">
+			Enter emails separated by comma.
+		</small>
+		<input
+			className="invite__input"
+			name="emails"
+			type="email"
+			multiple
+			placeholder="Ex: friend1@email.com,friend2@email.com"
+			onChange={(e) => {
+				stateVariable(e.target.value);
+			}}
+		/>
+	</label>
+	<div>
+		<h4>You're sending invites to the following friends</h4>
+		{allEmails &&
+			allEmails.map((email) => {
+				return <p key={email}>{email}</p>;
+			})}
+	</div>
+	<button type="submit" className="invite__submit">
+		Submit
+	</button>
+</form> */
+
+// <section className="modal">
+// 	<div className="modal__content">
+// 		<span
+// 			className="material-symbols-outlined modal__close"
+// 			onClick={() => setShowModal(false)}
+// 		>
+// 			close
+// 		</span>
+// 		<h3 className="modal__title">Invite Friends to Concert</h3>
+// 		<div className="modal__content">
+// 			{/* TODO: include some sort of image */}
+// 			<div className="modal__concert-details">
+// 				<h4>Concert Name</h4>
+// 				<h4>Date</h4>
+// 				<h4>Location</h4>
+// 				<h4>Link</h4>
+// 			</div>
+// 			<form
+// 				className="invite__form"
+// 				onSubmit={handleFriendInvites}
+// 			>
+// 				<label className="invite__label">
+// 					Invite Friends
+// 					<small className="message message--small">
+// 						Enter emails separated by comma.
+// 					</small>
+// 					<input
+// 						className="invite__input"
+// 						name="emails"
+// 						type="email"
+// 						multiple
+// 						placeholder="Ex: friend1@email.com,friend2@email.com"
+// 						onChange={(e) => {
+// 							setEmailList(e.target.value);
+// 						}}
+// 					/>
+// 				</label>
+// 				<div>
+// 					<h4>You're sending invites to the following friends</h4>
+// 					{allEmails &&
+// 						allEmails.map((email) => {
+// 							return <p key={email}>{email}</p>;
+// 						})}
+// 				</div>
+// 				<button type="submit" className="invite__submit">
+// 					Submit
+// 				</button>
+// 			</form>
+// 		</div>
+// 	</div>
+// </section>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { checkAccessToken } from "../../../utils/authAndTokens";
 import {
 	getSinglePlaylist,
@@ -9,13 +9,13 @@ import {
 import { getEventsByArtists } from "../../../utils/eventsFunctions";
 import PlaylistOverviewCard from "../../components/PlaylistOverviewCard/PlaylistOverviewCard";
 import Button from "../../components/Button/Button";
-import Icon from "../../components/Icon/Icon";
-import "./PlaylistDetailsPage.scss";
 import FriendList from "../../components/FriendList/FriendList";
 import ConcertCard from "../../components/ConcertCard/ConcertCard";
+import "./PlaylistDetailsPage.scss";
 
 export default function PlaylistDetailsPage() {
 	const { playlistId } = useParams();
+	const navigate = useNavigate();
 	const [playlist, setPlaylist] = useState(null);
 	const [playlistUsers, setPlaylistUsers] = useState(null);
 	const [friendsInfo, setFriendsInfo] = useState(null);
@@ -31,6 +31,7 @@ export default function PlaylistDetailsPage() {
 	}
 
 	//TODO: FUTURE IMPLEMENTATION -- create modal that opens for friends invite -- users can select/de-select certain friends too
+	//TODO: FUTURE IMPLEMENTATION -- implement safe routing for back button!
 
 	useEffect(() => {
 		checkAccessToken();
@@ -68,10 +69,17 @@ export default function PlaylistDetailsPage() {
 
 	return (
 		<article className="playlist">
+			<section className="page-nav">
+				<span
+					onClick={() => navigate(-1)}
+					className="material-symbols-outlined material-symbols-outlined--back"
+				>
+					arrow_back
+				</span>
+			</section>
 			<section className="playlist__overview">
-				{playlist ? (
+				{playlist && (
 					<>
-						{/* <div> */}
 						<h1 className="playlist__title">{playlist.name}</h1>
 						<div className="playlist__card">
 							<Link className="playlist__url" to={playlist.uri}>
@@ -107,10 +115,7 @@ export default function PlaylistDetailsPage() {
 								</div>
 							</div>
 						</div>
-						{/* </div> */}
 					</>
-				) : (
-					""
 				)}
 				{/* <Icon
 							icon="m360-160-56-56 70-72q-128-17-211-70T80-480q0-83 115.5-141.5T480-680q169 0 284.5 58.5T880-480q0 62-66.5 111T640-296v-82q77-20 118.5-49.5T800-480q0-32-85.5-76T480-600q-149 0-234.5 44T160-480q0 24 51 57.5T356-372l-52-52 56-56 160 160-160 160Z"
@@ -130,15 +135,15 @@ export default function PlaylistDetailsPage() {
 					group
 				</span> */}
 			</section>
-			{friendsInfo && showFriends ? (
+			{(friendsInfo && showFriends) && (
 				<section className="friends">
 					<FriendList
 						friendsInfo={friendsInfo}
 						setShowFriends={setShowFriends}
 					/>
 				</section>
-			) : (
-				""
+			// ) : (
+			// 	""
 			)}
 			<section className="concerts">
 				<div className="concerts__btn-div">
@@ -149,26 +154,22 @@ export default function PlaylistDetailsPage() {
 						}}
 					/>
 				</div>
-				{eventsList ? (
-					<>
-						<div className="concerts__suggestions">
-							<h2 className="concerts__header">Suggested Concerts</h2>
-							<ul className="concerts__list">
-								{eventsList.map((event) => {
-									return (
-										<ConcertCard
-											key={event.id}
-											showConcertDetails={showConcertDetails}
-											event={event}
-											handleEventClick={handleEventClick}
-										/>
-									);
-								})}
-							</ul>
-						</div>
-					</>
-				) : (
-					""
+				{eventsList && (
+					<div className="concerts__suggestions">
+						<h2 className="concerts__header">Suggested Concerts</h2>
+						<ul className="concerts__list">
+							{eventsList.map((event) => {
+								return (
+									<ConcertCard
+										key={event.id}
+										showConcertDetails={showConcertDetails}
+										event={event}
+										handleEventClick={handleEventClick}
+									/>
+								);
+							})}
+						</ul>
+					</div>
 				)}
 			</section>
 		</article>

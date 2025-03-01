@@ -23,10 +23,6 @@
         @include flex-box(row, center);
         width: 100%;
         position: relative;
-        // gap: $xs-gap;
-        // @include flex-box(column, flex-start, center);
-        // text-align: center;
-        // gap: $s-gap;
     }
 
     &__url {
@@ -71,11 +67,16 @@
     }
 }
 
+.page-nav {
+    @include flex-box(row, space-between, center);
+    width: 100%;
+    padding: $mobile-spacing;
+}
+
 .friends {
     @include flex-box(column, space-evenly, center);
     @include shadow;
     width: 95%;
-    // width: 75%;
     gap: $xs-gap;
     padding: $mobile-spacing;
     border-radius: $border-radius-m;
